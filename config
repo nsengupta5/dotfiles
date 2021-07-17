@@ -1,0 +1,8 @@
+Host lab
+	User ns214
+	HostName ns214.host.cs.st-andrews.ac.uk
+
+Host phone
+	User u0_a609
+	HostName 192.168.18.44 
+	Port 8022
