@@ -171,6 +171,16 @@ plist () {
 	spt play --name "$TITLE" --playlist
 }
 
+fseek () {
+	SECONDS="$1"
+	spt pb --seek +"$SECONDS"
+}
+
+bseek () {
+	SECONDS="$1"
+	spt pb --seek -"$SECONDS"
+}
+
 # Plays the next nth song in the playlist
 pnext () {
 	if [ $# -eq 0 ]

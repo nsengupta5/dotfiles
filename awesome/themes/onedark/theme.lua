@@ -12,7 +12,7 @@ theme.wallpaper = themes_path .. "onedark/onedark-background.png"
 -- }}}
 
 -- {{{ Styles
-theme.font      = "sans 8"
+theme.font      = "Ubuntu Condensed 10"
 
 -- {{{ Colors
 theme.fg_normal  = "#ABB2BF"
@@ -27,8 +27,8 @@ theme.bg_systray = theme.bg_normal
 -- {{{ Borders
 theme.useless_gap   = dpi(2)
 theme.border_width  = dpi(2)
-theme.border_normal = "#3F3F3F"
-theme.border_focus  = "#6F6F6F"
+theme.border_normal = "#20242B"
+theme.border_focus  = "#242830"
 theme.border_marked = "#CC9393"
 -- }}}
 

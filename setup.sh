@@ -11,3 +11,7 @@ ln -s ~/dotfiles/config ~/.ssh/config
 ln -s ~/dotfiles/awesome/rc.lua ~/.config/awesome/rc.lua
 ln -s ~/dotfiles/awesome/screenshot.lua ~/.config/awesome/screenshot.lua
 ln -s ~/dotfiles/awesome/themes/onedark/ ~/.config/awesome/themes/
+ln -s ~/dotfiles/.xinitrc ~/.xinitrc
+ln -s ~/dotfiles/.Xresources ~/.Xresources
+ln -s ~/dotfiles/.Xmodmap ~/.Xmodmap
+ln -s ~/dotfiles/locker ~/.config/awesome/locker

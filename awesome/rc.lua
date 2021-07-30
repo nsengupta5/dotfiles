@@ -1,6 +1,7 @@
 local gears = require("gears")
 local screenshot = require("screenshot")
 local awful = require("awful")
+require("collision")()
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
@@ -48,6 +49,9 @@ end
 -- beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), "onedark")
 beautiful.init(theme_path)
+
+local nice = require("nice")
+nice()
 
 -- This is used later as the default terminal and editor to run.
 terminal = "x-terminal-emulator"
@@ -338,7 +342,7 @@ globalkeys = gears.table.join(
               {description = "restore minimized", group = "client"}),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () awful.util.spawn("rofi -show drun") end,
+    awful.key({ modkey },            "d",     function () awful.util.spawn("rofi -show drun") end,
               {description = "run prompt", group = "launcher"}),
 
     awful.key({ modkey }, "x",
@@ -389,7 +393,11 @@ globalkeys = gears.table.join(
 
 	-- Application Keys
 	awful.key({ modkey }, "b", function ()
-		awful.util.spawn("firefox") end)
+		awful.util.spawn("firefox") end),
+
+	-- Lock Screen
+	awful.key({ modkey, "Control"   },  "l", function()
+		  awful.util.spawn("betterlockscreen -l") end)
 )
 
 clientkeys = gears.table.join(
@@ -620,3 +628,4 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- Autostart Applications
 awful.spawn.with_shell("compton")
 awful.spawn.with_shell("nitrogen --restore")
+awful.util.spawn_with_shell("~/.config/awesome/locker")
