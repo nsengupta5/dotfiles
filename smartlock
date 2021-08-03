@@ -1,0 +1,42 @@
+#!/bin/zsh
+
+EXCEPTIONS=( "YouTube" "Netflix" )
+SPAM=0
+while :
+do
+	FOUND=0
+	sleep 120
+	wmctrl -l | while read line
+	do
+		for e in "${EXCEPTIONS[@]}"
+		do
+			check_open=`echo "$line" | \grep "$e"`
+			if [[ "$check_open" ]]
+			then
+				if [[ "$SPAM" -eq 0 ]]
+				then 
+					xautolock -disable
+					xset s off -dpms
+					SPAM=1
+					FOUND=1
+					break;
+				else
+					FOUND=1
+				fi
+			fi
+		done
+
+		if [[ "$FOUND" -eq 1 ]]
+		then
+			FOUND=0
+			break;
+		fi
+
+		if [[ "$SPAM" -eq 1 ]]
+		then
+			xautolock -enable
+			xset s 60 +dpms
+			SPAM=0
+		fi
+	done
+done

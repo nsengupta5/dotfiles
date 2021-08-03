@@ -15,3 +15,4 @@ ln -s ~/dotfiles/.xinitrc ~/.xinitrc
 ln -s ~/dotfiles/.Xresources ~/.Xresources
 ln -s ~/dotfiles/.Xmodmap ~/.Xmodmap
 ln -s ~/dotfiles/locker ~/.config/awesome/locker
+ln -s ~/dotfiles/smartlock ~/.config/awesome/smartlock
