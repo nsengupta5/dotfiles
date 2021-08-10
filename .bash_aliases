@@ -38,6 +38,7 @@ alias lsong='spt playback --like'
 alias ga='git add'
 alias gb='git branch'
 alias gc='git commit -m'
+alias gs='git status'
 alias gpsh='git push origin'
 alias gpull='git pull'
 alias gr='git reset -HEAD'
@@ -74,47 +75,57 @@ chain() {
 
 # Prints the lyrics of the song currently playing
 lyrics () {
-	SONG=$(ssong | awk -F " -" '{print $1}' | sed 's/[^a-zA-Z0-9]*//g' | awk '{print tolower($0)}') 
-	ARTIST=$(ssong | awk -F "- " '{print $NF}') 
-	if [[ "$ARTIST" == *,* ]]
+	if command -v spt >/dev/null 2>&1 ;
 	then
-		ARTIST=$(echo "$ARTIST" | awk -F "," '{print $1}') 
-	fi
-	ARTIST=$(echo "$ARTIST" | sed 's/[^a-zA-Z0-9]*//g' | awk '{print tolower($0)}') 
-	if [[ "$ARTIST" == the* ]]
-	then
-		ARTIST=$(sed 's/the//' "$ARTIST") 
-	fi
+		SONG=$(ssong | awk -F " -" '{print $1}' | sed 's/[^a-zA-Z0-9]*//g' | awk '{print tolower($0)}') 
+		ARTIST=$(ssong | awk -F "- " '{print $NF}') 
+		if [[ "$ARTIST" == *,* ]]
+		then
+			ARTIST=$(echo "$ARTIST" | awk -F "," '{print $1}') 
+		fi
+		ARTIST=$(echo "$ARTIST" | sed 's/[^a-zA-Z0-9]*//g' | awk '{print tolower($0)}') 
+		if [[ "$ARTIST" == the* ]]
+		then
+			ARTIST=$(sed 's/the//' "$ARTIST") 
+		fi
 
-	wget --output-document lyrics.txt --user-agent "Mozilla" -q https://www.azlyrics.com/lyrics/"$ARTIST"/"$SONG".html
-	if [ $? -ne 0 ]
-	then
-		echo "ERROR: Lyrics not found"
+		wget --output-document lyrics.txt --user-agent "Mozilla" -q https://www.azlyrics.com/lyrics/"$ARTIST"/"$SONG".html
+		if [ $? -ne 0 ]
+		then
+			echo "ERROR: Lyrics not found"
+		else
+			\grep "<br>" lyrics.txt | sed -e "s/<[^>]*>//g"
+			rm lyrics.txt
+		fi
 	else
-		\grep "<br>" lyrics.txt | sed -e "s/<[^>]*>//g"
-		rm lyrics.txt
+		echo "Spotify Tui not installed"
 	fi
 }
 
 # Plays a youtube video based on a DuckDuckGo search
 ptube () {
-	if [ $# -eq 0 ]
+	if command -v mpv >/dev/null 2>&1 ;
 	then
-		echo "ERROR: No arguments provied"
-	else
-		QUERY="$(chain "+" "$@")"
-		wget --output-document=tmp --user-agent "Mozilla" -q "https://lite.duckduckgo.com/lite/?q=$QUERY+youtube" 
-		RESULTS=$(\grep "link-text'>www.youtube.com" tmp | awk -F ">" '{print $2}' | sed 's|</span||g') 
-		rm tmp
-		if [ "$RESULTS" ]
+		if [ $# -eq 0 ]
 		then
-			echo "$RESULTS" | nl
-			read -r "?Enter a number: " NUM
-			VID=$(echo "$RESULTS" | sed -n "$NUM p")
-			mpv "https://$VID"
+			echo "ERROR: No arguments provied"
 		else
-			echo "ERROR: No videos found"
+			QUERY="$(chain "+" "$@")"
+			wget --output-document=tmp --user-agent "Mozilla" -q "https://lite.duckduckgo.com/lite/?q=$QUERY+youtube" 
+			RESULTS=$(\grep "link-text'>www.youtube.com" tmp | awk -F ">" '{print $2}' | sed 's|</span||g') 
+			rm tmp
+			if [ "$RESULTS" ]
+			then
+				echo "$RESULTS" | nl
+				read -r "?Enter a number: " NUM
+				VID=$(echo "$RESULTS" | sed -n "$NUM p")
+				mpv "https://$VID"
+			else
+				echo "ERROR: No videos found"
+			fi
 		fi
+	else
+		"mpv not installed"
 	fi
 }
 
@@ -161,96 +172,146 @@ clip () {
 
 # Plays a song
 psong () {
-	TITLE="$(chain " " "$@")"
-	spt play --name "$TITLE" --track
+	if command -v spt >/dev/null 2>&1 ;
+	then
+		TITLE="$(chain " " "$@")"
+		spt play --name "$TITLE" --track
+	else
+		echo "Spotify Tui not installed"
+	fi
 }
 
 # Plays a playlist
 plist () {
-	TITLE="$(chain " " "$@")"
-	spt play --name "$TITLE" --playlist
+	if command -v spt >/dev/null 2>&1 ;
+	then
+		TITLE="$(chain " " "$@")"
+		spt play --name "$TITLE" --playlist
+	else
+		echo "Spotify Tui not installed"
+	fi
 }
 
 fseek () {
-	SECONDS="$1"
-	spt pb --seek +"$SECONDS"
+	if command -v spt >/dev/null 2>&1 ;
+	then
+		SECONDS="$1"
+		spt pb --seek +"$SECONDS"
+	else
+		echo "Spotify Tui not installed"
+	fi
 }
 
 bseek () {
-	SECONDS="$1"
-	spt pb --seek -"$SECONDS"
+	if command -v spt >/dev/null 2>&1 ;
+	then
+		SECONDS="$1"
+		spt pb --seek -"$SECONDS"
+	else
+		echo "Spotify Tui not installed"
+	fi
 }
 
 # Plays the next nth song in the playlist
 pnext () {
-	if [ $# -eq 0 ]
+	if command -v spt >/dev/null 2>&1 ;
 	then
-		spt playback --next
+		if [ $# -eq 0 ]
+		then
+			spt playback --next
+		else
+			REQ="" 
+			NUM="$1" 
+			for i in {1..$NUM}
+			do
+				REQ+="n" 
+			done
+			spt pb -"$REQ"
+		fi
 	else
-		REQ="" 
-		NUM="$1" 
-		for i in {1..$NUM}
-		do
-			REQ+="n" 
-		done
-		spt pb -"$REQ"
+		echo "Spotify Tui not installed"
 	fi
 }
 
 # Plays the previous nth song in the playlist
 pprev () {
-	if [ $# -eq 0 ]
+	if command -v spt >/dev/null 2>&1 ;
 	then
-		spt playback --previous
+		if [ $# -eq 0 ]
+		then
+			spt playback --previous
+		else
+			REQ="" 
+			NUM="$1" 
+			for i in {1..$NUM}
+			do
+				REQ+="p" 
+			done
+			spt pb -"$REQ"
+		fi
 	else
-		REQ="" 
-		NUM="$1" 
-		for i in {1..$NUM}
-		do
-			REQ+="p" 
-		done
-		spt pb -"$REQ"
+		echo "Spotify Tui not installed"
 	fi
 }
 
 # Lists playlists 
 llists () {
-	LIMIT=$1 
-	if [ $# -eq 0 ]
+	if command -v spt >/dev/null 2>&1 ;
 	then
-		spt list --playlists --limit 20 | awk -F "(" '{print $1}'
-	elif [ "$LIMIT" -lt 50 ] || [ "$LIMIT" -gt 1 ]
-	then
-		spt list --playlists --limit "$LIMIT" | awk -F "(" '{print $1}'
+		LIMIT=$1 
+		if [ $# -eq 0 ]
+		then
+			spt list --playlists --limit 20 | awk -F "(" '{print $1}'
+		elif [ "$LIMIT" -lt 50 ] || [ "$LIMIT" -gt 1 ]
+		then
+			spt list --playlists --limit "$LIMIT" | awk -F "(" '{print $1}'
+		else
+			echo "ERROR: Limit should be between 0 and 50"
+		fi
 	else
-		echo "ERROR: Limit should be between 0 and 50"
+		echo "Spotify Tui not installed"
 	fi
 }
 
 # List liked songs
 lliked () {
-	LIMIT=$1 
-	if [ $# -eq 0 ]
+	if command -v spt >/dev/null 2>&1 ;
 	then
-		spt list --limit 20 --liked 
-	elif [ "$LIMIT" -lt 50 ] || [ "$LIMIT" -gt 1 ]
-	then
-		spt list --limit "$LIMIT" --liked
+		LIMIT=$1 
+		if [ $# -eq 0 ]
+		then
+			spt list --limit 20 --liked 
+		elif [ "$LIMIT" -lt 50 ] || [ "$LIMIT" -gt 1 ]
+		then
+			spt list --limit "$LIMIT" --liked
+		else
+			echo "ERROR: Limit should be between 0 and 50"
+		fi
 	else
-		echo "ERROR: Limit should be between 0 and 50"
+		echo "Spotify Tui not installed"
 	fi
 }
 
 # Finds songs
 fsong () {
-	TITLE="$(chain " " "$@")"
-	spt search "$TITLE" --tracks
+	if command -v spt >/dev/null 2>&1 ;
+	then
+		TITLE="$(chain " " "$@")"
+		spt search "$TITLE" --tracks
+	else
+		echo "Spotify Tui not installed"
+	fi
 }
 
 # Adds a song to the queue
 qsong () {
-	TITLE="$(chain " " "$@")"
-	spt play --name "$TITLE" --track --queue
+	if command -v spt >/dev/null 2>&1 ;
+	then
+		TITLE="$(chain " " "$@")"
+		spt play --name "$TITLE" --track --queue
+	else
+		echo "Spotify Tui not installed"
+	fi
 }
 
 # Git Functions
@@ -273,33 +334,48 @@ sshsend () {
 
 # Executes a DuckDuckGo search
 ddgo () {
-	if [ $# -eq 0 ]
+	if command -v w3m >/dev/null 2>&1 ;
 	then
-		w3m www.duckduckgo.com
+		if [ $# -eq 0 ]
+		then
+			w3m www.duckduckgo.com
+		else
+			QUERY="$(chain "+" "$@")"
+			w3m "https://duckduckgo.com/?q=$QUERY"
+		fi
 	else
-		QUERY="$(chain "+" "$@")"
-		w3m "https://duckduckgo.com/?q=$QUERY"
+		echo "w3m not installed"
 	fi
 }
 
 # Executes a Brave search
 brave() {
-	if [ $# -eq 0 ]
+	if command -v w3m >/dev/null 2>&1 ;
 	then
-		w3m search.brave.com
-	else
-		QUERY="$(chain "+" "$@")"
-		w3m "https://search.brave.com/search?q=$QUERY"
+		if [ $# -eq 0 ]
+		then
+			w3m search.brave.com
+		else
+			QUERY="$(chain "+" "$@")"
+			w3m "https://search.brave.com/search?q=$QUERY"
+		fi
+	else 
+		echo "w3m not installed"
 	fi
 }
 
 # Executes a Google search
 google () {
-	if [ $# -eq 0 ]
+	if command -v w3m >/dev/null 2>&1 ;
 	then
-		w3m www.google.com
-	else
-		QUERY="$(chain "+" "$@")" 
-		w3m "https://www.google.com/search?q=$QUERY"
+		if [ $# -eq 0 ]
+		then
+			w3m www.google.com
+		else
+			QUERY="$(chain "+" "$@")" 
+			w3m "https://www.google.com/search?q=$QUERY"
+		fi
+	else 
+		echo "w3m not installed"
 	fi
 }

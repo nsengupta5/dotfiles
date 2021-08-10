@@ -8,6 +8,7 @@ export EDITOR='nvim'
 export HISTCONTROL=ignoreboth
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export PAGER='most'
+export LD_LIBRARY_PATH=/usr/local/clang_9.0.0/lib:$LD_LIBRARY_PATH
 
 if [ -d "$HOME/bin" ] ; then
   PATH="$PATH:$HOME/bin"
@@ -15,6 +16,7 @@ fi
 
 PATH="$PATH:$HOME/.cargo/bin"
 PATH="$PATH:$HOME/go/bin"
+PATH="$PATH:/usr/local/clang_9.0.0/bin"
 export PATH
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -90,7 +92,7 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs histor
 plugins=(git zsh-vi-mode zsh-syntax-highlighting zsh-autosuggestions virtualenv fasd)
 
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-ZSH_AUTOSUGGEST_COMPLETION_IGNORE="scp *|tx *|tmux *|getp *|sudo apt install*|git *"
+ZSH_AUTOSUGGEST_COMPLETION_IGNORE="scp *|tx *|tmux *|getp *|sudo apt install*|git *|npm*"
 
 source $ZSH/oh-my-zsh.sh
 

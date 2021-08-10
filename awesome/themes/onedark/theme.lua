@@ -1,7 +1,7 @@
 -------------------------------
 --  "Zenburn" awesome theme  --
 --    By Adrian C. (anrxc)   --
--------------------------------
+------------------------------
 
 local themes_path = "~/.config/awesome/themes/"
 local dpi = require("beautiful.xresources").apply_dpi
@@ -12,22 +12,22 @@ theme.wallpaper = themes_path .. "onedark/onedark-background.png"
 -- }}}
 
 -- {{{ Styles
-theme.font      = "Ubuntu Condensed 10"
+theme.font      = "Roboto Condensed 10"
 
 -- {{{ Colors
 theme.fg_normal  = "#ABB2BF"
 theme.fg_focus   = "#ABB2BF"
-theme.fg_urgent  = "#CC9393"
-theme.bg_normal  = "#2B2F38AA"
-theme.bg_focus   = "#20242B"
-theme.bg_urgent  = "#20242B"
+theme.fg_urgent  = "#ABB2BF"
+theme.bg_normal  = "#427096AA"
+theme.bg_focus   = "#253f54AA"
+theme.bg_urgent  = "#427096AA"
 theme.bg_systray = theme.bg_normal
 -- }}}
 
 -- {{{ Borders
 theme.useless_gap   = dpi(2)
 theme.border_width  = dpi(2)
-theme.border_normal = "#20242B"
+theme.border_normal = "#253f54"
 theme.border_focus  = "#242830"
 theme.border_marked = "#CC9393"
 -- }}}

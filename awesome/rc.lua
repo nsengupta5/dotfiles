@@ -228,23 +228,24 @@ awful.screen.connect_for_each_screen(function(s)
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s })
 
+	local battery_widget = require("widgets.battery-widget.battery")
+
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-			spacing = 10,
             mylauncher,
             s.mytaglist,
             s.mypromptbox,
+            layout = wibox.layout.fixed.horizontal,
         },
-        s.mytasklist, -- Middle widget
+		s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
 			spacing = 10,
-            mykeyboardlayout,
+			battery_widget(),
             wibox.widget.systray(),
-            mytextclock,
+			mytextclock,
             s.mylayoutbox,
         },
     }
@@ -562,7 +563,7 @@ client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
     -- if not awesome.startup then awful.client.setslave(c) end
-
+	c.shape = gears.shape.rounded_rect
     if awesome.startup and
       not c.size_hints.user_position
       and not c.size_hints.program_position then
@@ -629,3 +630,4 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 awful.spawn.with_shell("compton")
 awful.spawn.with_shell("nitrogen --restore")
 awful.util.spawn_with_shell("~/.config/awesome/locker")
+awful.util.spawn_with_shell("~/.config/awesome/smartlock")
