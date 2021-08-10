@@ -1,0 +1,9 @@
+bat
+exa
+fd
+hyperfine
+procs
+rg
+spotifyd
+spt
+ytop

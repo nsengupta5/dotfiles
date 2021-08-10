@@ -1,0 +1,9 @@
+#!/bin/zsh
+set -euo pipefail
+
+echo "Cleaning system"
+
+sudo apt-get -y autoremove
+sudo apt-get autoclean
+
+echo "Finished cleaning system"

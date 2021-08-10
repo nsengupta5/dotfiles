@@ -16,3 +16,12 @@ ln -s ~/dotfiles/.Xresources ~/.Xresources
 ln -s ~/dotfiles/.Xmodmap ~/.Xmodmap
 ln -s ~/dotfiles/locker ~/.config/awesome/locker
 ln -s ~/dotfiles/smartlock ~/.config/awesome/smartlock
+ln -s ~/dotfiles/config.rasi ~/.config/rofi/config.rasi
+ln -s ~/dotfiles/id_ed25519 ~/.ssh/id_ed25519
+ln -s ~/dotfiles/id_ed25519.pub ~/.ssh/id_ed25519.pub
+ln -s ~/dotfiles/id_rsa ~/.ssh/id_rsa
+ln -s ~/dotfiles/id_rsa.pub ~/.ssh/id_rsa.pub
+ln -s ~/dotfiles/authorized_keys ~/.ssh/authorized_keys
+ln -s ~/dotfiles/clean ~/bin/clean
+ln -s ~/dotfiles/update ~/bin/update
+ln -s ~/dotfiles/allcolors ~/bin/allcolors
