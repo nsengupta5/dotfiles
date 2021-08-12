@@ -2,10 +2,9 @@
 
 echo "Starting system update & cleanup"
 
-sudo apt-get update
-sudo apt-get -y upgrade
+sudo dnf update
+sudo dnf upgrade
 
-sudo apt-get -y autoremove
-sudo apt-get autoclean
+sudo dnf autoremove
 
 echo "Finished system update & cleanup"

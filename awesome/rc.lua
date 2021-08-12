@@ -16,7 +16,7 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 require("awful.hotkeys_popup.keys")
 
 -- Load Debian menu entries
-local debian = require("debian.menu")
+-- local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 
 -- {{{ Error handling
@@ -50,11 +50,11 @@ end
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), "onedark")
 beautiful.init(theme_path)
 
-local nice = require("nice")
-nice()
+-- local nice = require("nice")
+-- nice()
 
 -- This is used later as the default terminal and editor to run.
-terminal = "x-terminal-emulator"
+terminal = "kitty"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -123,7 +123,7 @@ else
     mymainmenu = awful.menu({
         items = {
                   menu_awesome,
-                  { "Debian", debian.menu.Debian_menu.Debian },
+                  --{ "Debian", debian.menu.Debian_menu.Debian },
                   menu_terminal,
                 }
     })
@@ -228,7 +228,7 @@ awful.screen.connect_for_each_screen(function(s)
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s })
 
-	local battery_widget = require("widgets.battery-widget.battery")
+--	local battery_widget = require("widgets.battery-widget.battery")
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -243,7 +243,7 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
 			spacing = 10,
-			battery_widget(),
+--			battery_widget(),
             wibox.widget.systray(),
 			mytextclock,
             s.mylayoutbox,
@@ -368,11 +368,11 @@ globalkeys = gears.table.join(
 
 	-- Volume Keys
    awful.key({}, "XF86AudioLowerVolume", function ()
-		 awful.util.spawn("amixer -q -D pulse sset Master 5%-", false) end),
+		 awful.util.spawn("amixer -q -c 0 sset Master 5%-", false) end),
    awful.key({}, "XF86AudioRaiseVolume", function ()
-		 awful.util.spawn("amixer -q -D pulse sset Master 5%+", false) end),
+		 awful.util.spawn("amixer -q -c 0 sset Master 5%+", false) end),
    awful.key({}, "XF86AudioMute", function ()
-		 awful.util.spawn("amixer -D pulse set Master 1+ toggle", false) end),
+		 awful.util.spawn("pactl set-sink-mute 0 toggle", false) end),
 
    -- Media Keys
     awful.key({}, "XF86AudioPlay", function()

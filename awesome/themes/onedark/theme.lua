@@ -12,7 +12,7 @@ theme.wallpaper = themes_path .. "onedark/onedark-background.png"
 -- }}}
 
 -- {{{ Styles
-theme.font      = "Roboto Condensed 10"
+theme.font      = "PT Sans Condensed 11"
 
 -- {{{ Colors
 theme.fg_normal  = "#ABB2BF"

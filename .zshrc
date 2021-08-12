@@ -7,7 +7,6 @@ export TERM="xterm-256color"
 export EDITOR='nvim'
 export HISTCONTROL=ignoreboth
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-export PAGER='most'
 export LD_LIBRARY_PATH=/usr/local/clang_9.0.0/lib:$LD_LIBRARY_PATH
 
 if [ -d "$HOME/bin" ] ; then
@@ -16,7 +15,7 @@ fi
 
 PATH="$PATH:$HOME/.cargo/bin"
 PATH="$PATH:$HOME/go/bin"
-PATH="$PATH:/usr/local/clang_9.0.0/bin"
+PATH="$PATH:$HOME/.local/bin"
 export PATH
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -89,7 +88,8 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs histor
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-vi-mode zsh-syntax-highlighting zsh-autosuggestions virtualenv fasd)
+# TO DO: virtualenv 
+plugins=(git fasd zsh-autosuggestions zsh-syntax-highlighting zsh-vi-mode ) 
 
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZSH_AUTOSUGGEST_COMPLETION_IGNORE="scp *|tx *|tmux *|getp *|sudo apt install*|git *|npm*"

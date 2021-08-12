@@ -12,18 +12,16 @@ alias la='ls -lah'
 alias lclips='cat ~/clipper_history'
 alias ls='exa -al --color=always --group-directories-first'
 alias md='mkdir -p'
-alias nvim='~/Downloads/nvim.appimage'
 alias open='xdg-open'
 alias pip='pip3'
 alias python='python3'
 alias sqlite='sqlite3'
-alias tldr='tldr -t '\''base16'\'
 alias tx='tmuxinator start'
 alias uptime='uptime --pretty'
 alias vpn='protonvpn-cli'
 alias yt='mpsyt'
 alias ytclear='rm ~/.config/mps-youtube/cache_py_*'
-alias ispt="spotifyd --zeroconf-port 4444"
+alias ispt="spotifyd"
 alias getp='sudo apt-get install'
 
 # Spotify Aliases
@@ -86,7 +84,7 @@ lyrics () {
 		ARTIST=$(echo "$ARTIST" | sed 's/[^a-zA-Z0-9]*//g' | awk '{print tolower($0)}') 
 		if [[ "$ARTIST" == the* ]]
 		then
-			ARTIST=$(sed 's/the//' "$ARTIST") 
+			ARTIST=$(echo "$ARTIST" | sed 's/the//') 
 		fi
 
 		wget --output-document lyrics.txt --user-agent "Mozilla" -q https://www.azlyrics.com/lyrics/"$ARTIST"/"$SONG".html
