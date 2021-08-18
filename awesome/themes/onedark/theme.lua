@@ -18,9 +18,9 @@ theme.font      = "PT Sans Condensed 11"
 theme.fg_normal  = "#ABB2BF"
 theme.fg_focus   = "#ABB2BF"
 theme.fg_urgent  = "#ABB2BF"
-theme.bg_normal  = "#427096AA"
-theme.bg_focus   = "#253f54AA"
-theme.bg_urgent  = "#427096AA"
+theme.bg_normal  = "#427096"
+theme.bg_focus   = "#253f54"
+theme.bg_urgent  = "#427096"
 theme.bg_systray = theme.bg_normal
 -- }}}
 

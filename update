@@ -3,7 +3,6 @@
 echo "Starting system update & cleanup"
 
 sudo dnf update
-sudo dnf upgrade
 
 sudo dnf autoremove
 

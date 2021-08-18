@@ -67,12 +67,12 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
+    awful.layout.suit.fair,
     awful.layout.suit.tile,
     awful.layout.suit.floating,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
     awful.layout.suit.spiral,
     awful.layout.suit.spiral.dwindle,
@@ -228,7 +228,9 @@ awful.screen.connect_for_each_screen(function(s)
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s })
 
---	local battery_widget = require("widgets.battery-widget.battery")
+    local battery_widget = require("widgets.battery.battery")
+
+	beautiful.systray_icon_spacing = 10,
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -240,17 +242,18 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
         },
 		s.mytasklist, -- Middle widget
-        { -- Right widgets
+        { -- Right widgetsj
+            wibox.widget.systray(false),
             layout = wibox.layout.fixed.horizontal,
 			spacing = 10,
---			battery_widget(),
-            wibox.widget.systray(),
+			battery_widget(),
 			mytextclock,
             s.mylayoutbox,
         },
     }
 end)
 -- }}}
+--
 
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
@@ -629,5 +632,6 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- Autostart Applications
 awful.spawn.with_shell("compton")
 awful.spawn.with_shell("nitrogen --restore")
+awful.util.spawn_with_shell("nm-applet &")
 awful.util.spawn_with_shell("~/.config/awesome/locker")
 awful.util.spawn_with_shell("~/.config/awesome/smartlock")
