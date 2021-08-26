@@ -20,18 +20,19 @@ set list lcs=tab:\|\
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'joshdick/onedark.vim'
 Plug 'tpope/vim-surround'
-Plug 'itchyny/lightline.vim'
-Plug 'JamshedVesuna/vim-markdown-preview'
-Plug 'preservim/nerdtree'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'lambdalisue/fern.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'mengelbrecht/lightline-bufferline'
+Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/syntastic'
+Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'ryanoasis/vim-devicons'
+Plug 'lambdalisue/nerdfont.vim'
 Plug 'Pocco81/TrueZen.nvim'
 Plug 'jiangmiao/auto-pairs'
 call plug#end()
@@ -48,48 +49,31 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-" Lightline settings
-let g:lightline = {
-  \ 'colorscheme': 'onedark',
-  \ 'active': {
-  \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-  \ },
-  \ 'component_function': {
-  \   'gitbranch': 'FugitiveHead'
-  \ },
-  \ 'separator': { 'left': '', 'right': '' },
-  \ 'subseparator': { 'left': '', 'right': '' },
-  \ 'tabline': {
-  \   'left': [ ['buffers'] ]
-  \ },
-  \ 'component_expand': {
-  \   'buffers': 'lightline#bufferline#buffers'
-  \ },
-  \ 'component_type': {
-  \   'buffers': 'tabsel'
-  \ }
-  \ }
-
-let g:lightline#bufferline#show_number = 2
-let g:lightline#bufferline#shorten_path = 0
-let g:lightline#bufferline#enable_devicons = 1
-let g:lightline#bufferline#icon_position = 'first'
-let g:lightline#bufferline#unnamed      = '[No Name]' 
-
-
-autocmd VimEnter * call SetupLightlineColors()
-function SetupLightlineColors() abort
-  let l:pallete = lightline#palette()
-  let l:pallete.normal.left[1][3] = 'NONE'
-  call lightline#colorscheme()
-endfunction
+" Airline Settings
+let g:airline#extensions#tabline#enabled = 1
 
 " Remove background color
 hi Normal guibg=NONE ctermbg=NONE
 
-" grip setup
-let vim_markdown_preview_github=1
+" Fern Settings
+let g:fern#renderer = "nerdfont"
+let g:fern#drawer_width = 40
 
-" Remap NERDTree 
-nnoremap <C-n> :NERDTree<CR>
+nnoremap <silent> <C-t> :Fern . -drawer -toggle<CR>
+nnoremap <silent> <C-n> :Fern . -drawer -reveal=%<CR>
+
+function! s:init_fern() abort
+	" Use 'select' instead of 'edit' for default 'open' action
+	nmap <buffer> R <Plug>(fern-action-rename)
+	nmap <buffer> M <Plug>(fern-action-move)
+	nmap <buffer> C <Plug>(fern-action-copy)
+	nmap <buffer> T <Plug>(fern-action-new-file)
+	nmap <buffer> D <Plug>(fern-action-new-dir)
+	nmap <buffer> dd <Plug>(fern-action-remove)
+	nmap <buffer> O <Plug>(fern-action-open:tabedit)
+endfunction
+
+augroup fern-custom
+  autocmd! *
+  autocmd FileType fern call s:init_fern()
+augroup END

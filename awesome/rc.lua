@@ -229,28 +229,37 @@ awful.screen.connect_for_each_screen(function(s)
     s.mywibox = awful.wibar({ position = "top", screen = s })
 
     local battery_widget = require("widgets.battery.battery")
+--	local volume_widget = require("widgets.volume.volume")
 
 	beautiful.systray_icon_spacing = 10,
 
     -- Add widgets to the wibox
     s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            mylauncher,
-            s.mytaglist,
-            s.mypromptbox,
-            layout = wibox.layout.fixed.horizontal,
-        },
-		s.mytasklist, -- Middle widget
-        { -- Right widgetsj
-            wibox.widget.systray(false),
-            layout = wibox.layout.fixed.horizontal,
-			spacing = 10,
-			battery_widget(),
+		layout = wibox.layout.stack,
+		{
+			layout = wibox.layout.align.horizontal,
+			{ -- Left widgets
+				mylauncher,
+				s.mytaglist,
+				s.mypromptbox,
+				layout = wibox.layout.fixed.horizontal,
+			},
+			nil,
+			{ -- Right widgetsj
+				wibox.widget.systray(false),
+				layout = wibox.layout.fixed.horizontal,
+				spacing = 10,
+				battery_widget(),
+--	            s.mylayoutbox,
+			},
+	    },
+		{
 			mytextclock,
-            s.mylayoutbox,
-        },
-    }
+			valign = "center",
+			halign = "center",
+			layout = wibox.container.place
+		}
+	}
 end)
 -- }}}
 --
@@ -346,7 +355,7 @@ globalkeys = gears.table.join(
               {description = "restore minimized", group = "client"}),
 
     -- Prompt
-    awful.key({ modkey },            "d",     function () awful.util.spawn("rofi -show drun") end,
+    awful.key({ modkey },            "d",     function () awful.util.spawn("rofi -combi-modi drun,window, -show combi") end,
               {description = "run prompt", group = "launcher"}),
 
     awful.key({ modkey }, "x",
@@ -397,7 +406,7 @@ globalkeys = gears.table.join(
 
 	-- Application Keys
 	awful.key({ modkey }, "b", function ()
-		awful.util.spawn("firefox") end),
+		awful.util.spawn("flatpak run io.gitlab.librewolf-community") end),
 
 	-- Lock Screen
 	awful.key({ modkey, "Control"   },  "l", function()
@@ -632,6 +641,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- Autostart Applications
 awful.spawn.with_shell("compton")
 awful.spawn.with_shell("nitrogen --restore")
+awful.util.spawn_with_shell("volumeicon &")
 awful.util.spawn_with_shell("nm-applet &")
 awful.util.spawn_with_shell("~/.config/awesome/locker")
 awful.util.spawn_with_shell("~/.config/awesome/smartlock")

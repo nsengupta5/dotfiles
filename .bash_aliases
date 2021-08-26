@@ -127,18 +127,6 @@ ptube () {
 	fi
 }
 
-# Creates a directory and moves into it
-mkcd () {
-	DIRECTORY="$1" 
-	if [ -d "$DIRECTORY" ]
-	then
-		echo "Directory already exists"
-	else
-		mkdir "$DIRECTORY"
-		cd "$DIRECTORY" || return
-	fi
-}
-
 # Controls the screen brightness 
 brightness () {
 	LEVEL="$1" 
