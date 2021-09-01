@@ -17,6 +17,7 @@ PATH="$PATH:$HOME/.cargo/bin"
 PATH="$PATH:$HOME/go/bin"
 PATH="$PATH:$HOME/.local/bin"
 export PATH
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -24,7 +25,7 @@ export PATH
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Enables vi mode
-bindkey -v
+#bindkey -v
 
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time virtualenv)
 
@@ -92,7 +93,6 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs histor
 plugins=(git fasd zsh-autosuggestions zsh-syntax-highlighting zsh-vi-mode ) 
 
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-ZSH_AUTOSUGGEST_COMPLETION_IGNORE="scp *|tx *|tmux *|getp *|sudo apt install*|git *|npm*"
 
 source $ZSH/oh-my-zsh.sh
 

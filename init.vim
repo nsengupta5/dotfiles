@@ -31,10 +31,13 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/syntastic'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+Plug 'lambdalisue/fern-git-status.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'Pocco81/TrueZen.nvim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'lervag/vimtex'
+Plug 'ferrine/md-img-paste.vim'
 call plug#end()
 
 colorscheme onedark
@@ -49,6 +52,8 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+let g:syntastic_python_checkers = ['python']
+
 " Airline Settings
 let g:airline#extensions#tabline#enabled = 1
 
@@ -58,7 +63,6 @@ hi Normal guibg=NONE ctermbg=NONE
 " Fern Settings
 let g:fern#renderer = "nerdfont"
 let g:fern#drawer_width = 40
-
 nnoremap <silent> <C-t> :Fern . -drawer -toggle<CR>
 nnoremap <silent> <C-n> :Fern . -drawer -reveal=%<CR>
 
@@ -77,3 +81,15 @@ augroup fern-custom
   autocmd! *
   autocmd FileType fern call s:init_fern()
 augroup END
+
+" Coc Settings
+
+" use <tab> for trigger completion and navigate to the next complete item
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"     \ coc#refresh()
+
+" MarkdownImage Settings
+autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownClipboardImage()<CR>
+" there are some defaults for image directory and image name, you can change them
+" let g:mdip_imgdir = 'img'
+" let g:mdip_imgname = 'image'
