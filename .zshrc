@@ -27,7 +27,9 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # Enables vi mode
 #bindkey -v
 
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time virtualenv)
+# Maybe Right
+# 
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs history time virtualenv)
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -90,6 +92,7 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs histor
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # TO DO: virtualenv 
+#
 plugins=(git fasd zsh-autosuggestions zsh-syntax-highlighting zsh-vi-mode ) 
 
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
