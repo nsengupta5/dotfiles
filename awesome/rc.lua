@@ -295,8 +295,8 @@ globalkeys = gears.table.join(
         end,
         {description = "focus previous by index", group = "client"}
     ),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
-              {description = "show main menu", group = "awesome"}),
+    -- awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
+    --           {description = "show main menu", group = "awesome"}),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
@@ -406,7 +406,13 @@ globalkeys = gears.table.join(
 
 	-- Application Keys
 	awful.key({ modkey }, "b", function ()
+		awful.util.spawn("/opt/brave.com/brave/brave") end),
+
+	awful.key({ modkey }, "w", function ()
 		awful.util.spawn("flatpak run io.gitlab.librewolf-community") end),
+
+	awful.key({ modkey }, "q", function ()
+		awful.util.spawn("min") end),
 
 	-- Lock Screen
 	awful.key({ modkey, "Control"   },  "l", function()
@@ -639,7 +645,6 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 -- Autostart Applications
-awful.spawn.with_shell("compton")
 awful.spawn.with_shell("nitrogen --restore")
 awful.util.spawn_with_shell("volumeicon &")
 awful.util.spawn_with_shell("nm-applet &")
