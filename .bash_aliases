@@ -14,7 +14,7 @@ alias ls='exa -al --color=always --group-directories-first'
 alias md='mkdir -p'
 alias open='xdg-open'
 alias pip='pip3'
-alias python='python3'
+alias python='python3.10'
 alias sqlite='sqlite3'
 alias tx='tmuxinator start'
 alias uptime='uptime --pretty'
@@ -23,6 +23,8 @@ alias yt='mpsyt'
 alias ytclear='rm ~/.config/mps-youtube/cache_py_*'
 alias ispt="spotifyd"
 alias getp='sudo apt-get install'
+alias congl='ssh -D 8123 -f -C -q -N ns214@ns214.host.cs.st-andrews.ac.uk'
+alias wordle='ssh clidle.ddns.net -p 3000'
 
 # Spotify Aliases
 alias dlsong='spt playback --dislike'
@@ -75,8 +77,16 @@ chain() {
 lyrics () {
 	if command -v spt >/dev/null 2>&1 ;
 	then
-		SONG=$(ssong | awk -F " -" '{print $1}' | sed 's/[^a-zA-Z0-9]*//g' | awk '{print tolower($0)}') 
-		ARTIST=$(ssong | awk -F "- " '{print $NF}') 
+		if [[ $# -eq 0 ]]
+		then
+			FULL=$(ssong)
+		else
+			QUERY="$(chain "+" "$@")" 
+			FULL=$(w3m -dump https://search.azlyrics.com/search.php\?q\="$QUERY" | \grep "1\." | cut -d ' ' -f2- | tr -d '"')
+		fi
+
+		SONG=$(echo "$FULL" | awk -F " -" '{print $1}' | sed 's/[^a-zA-Z0-9]*//g' | awk '{print tolower($0)}') 
+		ARTIST=$(echo "$FULL" | awk -F "- " '{print $NF}') 
 		if [[ "$ARTIST" == *,* ]]
 		then
 			ARTIST=$(echo "$ARTIST" | awk -F "," '{print $1}') 
@@ -93,8 +103,8 @@ lyrics () {
 			echo "ERROR: Lyrics not found"
 		else
 			\grep "<br>" lyrics.txt | sed -e "s/<[^>]*>//g"
-			rm lyrics.txt
 		fi
+		rm lyrics.txt
 	else
 		echo "Spotify Tui not installed"
 	fi
@@ -330,22 +340,6 @@ ddgo () {
 			w3m "https://duckduckgo.com/?q=$QUERY"
 		fi
 	else
-		echo "w3m not installed"
-	fi
-}
-
-# Executes a Brave search
-brave() {
-	if command -v w3m >/dev/null 2>&1 ;
-	then
-		if [ $# -eq 0 ]
-		then
-			w3m search.brave.com
-		else
-			QUERY="$(chain "+" "$@")"
-			w3m "https://search.brave.com/search?q=$QUERY"
-		fi
-	else 
 		echo "w3m not installed"
 	fi
 }

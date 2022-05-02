@@ -8,27 +8,27 @@ local dpi = require("beautiful.xresources").apply_dpi
 
 -- {{{ Main
 local theme = {}
-theme.wallpaper = themes_path .. "onedark/onedark-background.png"
+theme.wallpaper = themes_path .. "onedark/mountains.jpg"
 -- }}}
 
 -- {{{ Styles
-theme.font      = "PT Sans Condensed 11"
+theme.font      = "SF Pro Display Medium 11"
 
 -- {{{ Colors
 theme.fg_normal  = "#ABB2BF"
 theme.fg_focus   = "#ABB2BF"
 theme.fg_urgent  = "#ABB2BF"
-theme.bg_normal  = "#427096"
-theme.bg_focus   = "#253f54"
-theme.bg_urgent  = "#427096"
+theme.bg_normal  = "#2a2b29"
+theme.bg_focus   = "#1b1c1a"
+theme.bg_urgent  = "#4E3834"
 theme.bg_systray = theme.bg_normal
 -- }}}
 
 -- {{{ Borders
 theme.useless_gap   = dpi(2)
 theme.border_width  = dpi(2.5)
-theme.border_normal = "#253f54"
-theme.border_focus  = "#61AFEF"
+theme.border_normal = "#2a2b29"
+theme.border_focus  = "#8cbcd4"
 theme.border_marked = "#CC9393"
 -- }}}
 
@@ -79,7 +79,7 @@ theme.taglist_squares_unsel = themes_path .. "zenburn/taglist/squarez.png"
 -- }}}
 
 -- {{{ Misc
-theme.awesome_icon           = themes_path .. "onedark/awesome-icon.png"
+theme.awesome_icon           = themes_path .. "onedark/awesome-icon-gray.png"
 theme.menu_submenu_icon      = themes_path .. "default/submenu.png"
 -- }}}
 

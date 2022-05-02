@@ -19,7 +19,9 @@ set list lcs=tab:\|\
 
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'joshdick/onedark.vim'
+Plug 'arcticicestudio/nord-vim'
 Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'tpope/vim-commentary'
@@ -43,9 +45,31 @@ Plug 'sheerun/vim-polyglot'
 Plug 'unblevable/quick-scope'
 Plug 'ferrine/md-img-paste.vim'
 Plug 'honza/vim-snippets'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'karb94/neoscroll.nvim'
 call plug#end()
 
+" Airline Settings
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='onedark'
+hi airline_tabfill ctermbg=NONE guibg=NONE
+
+" Colorscheme
+let g:onedark_hide_endofbuffer = 1
+let g:onedark_termcolors = 256
+let g:onedark_terminal_italics = 1
 colorscheme onedark
+if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+endif
 
 " Buffer and Tab Navigation Keybindings
 noremap <S-l> gt
@@ -71,9 +95,6 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers=['eslint']
 let g:syntastic_python_checkers = ['python']
 let g:loaded_syntastic_java_javac_checker = 1
-
-" Airline Settings
-let g:airline#extensions#tabline#enabled = 1
 
 " Remove background color
 hi Normal guibg=NONE ctermbg=NONE
@@ -142,6 +163,9 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 " Trigger a highlight in the appropriate direction when pressing these keys:
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
+" Neoscroll Settings
+lua require('neoscroll').setup()
+
 map <C-f> :Files<CR>
 map <leader>b :Buffers<CR>
 nnoremap <leader>g :Rg<CR>
@@ -203,7 +227,7 @@ command! -bang -nargs=* GGrep
 let g:startify_session_dir = '~/.config/nvim/session'
 let g:startify_lists = [
           \ { 'type': 'files',     'header': ['   Files']            },
-          \ { 'type': 'dir',       'header': ['   Current Directory '] },
+          \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
           \ { 'type': 'sessions',  'header': ['   Sessions']       },
           \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
           \ ]

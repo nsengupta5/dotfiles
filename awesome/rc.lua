@@ -228,10 +228,11 @@ awful.screen.connect_for_each_screen(function(s)
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s })
 
+    local sys_tray = wibox.layout.margin(wibox.widget.systray(), 5, 5, 5, 5)
     local battery_widget = require("widgets.battery.battery")
 --	local volume_widget = require("widgets.volume.volume")
 
-	beautiful.systray_icon_spacing = 10,
+	beautiful.systray_icon_spacing = 20,
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -245,10 +246,11 @@ awful.screen.connect_for_each_screen(function(s)
 				layout = wibox.layout.fixed.horizontal,
 			},
 			nil,
-			{ -- Right widgetsj
-				wibox.widget.systray(false),
+			{ -- Right widgets
+				sys_tray,
+                -- wibox.widget.systray(),
 				layout = wibox.layout.fixed.horizontal,
-				spacing = 10,
+                spacing = 10,
 				battery_widget(),
 --	            s.mylayoutbox,
 			},
@@ -355,7 +357,7 @@ globalkeys = gears.table.join(
               {description = "restore minimized", group = "client"}),
 
     -- Prompt
-    awful.key({ modkey },            "d",     function () awful.util.spawn("rofi -combi-modi drun,window, -show combi") end,
+    awful.key({ modkey },            "d",     function () awful.util.spawn("rofi -combi-modi drun,window, -show combi -theme /usr/share/rofi/themes/onedark.rasi") end,
               {description = "run prompt", group = "launcher"}),
 
     awful.key({ modkey }, "x",
@@ -412,7 +414,7 @@ globalkeys = gears.table.join(
 		awful.util.spawn("flatpak run io.gitlab.librewolf-community") end),
 
 	awful.key({ modkey }, "q", function ()
-		awful.util.spawn("min") end),
+		awful.util.spawn("/var/lib/flatpak/app/com.spotify.Client/x86_64/stable/9f93956f3e387b0ba59ada9f5a802cf67a106327e92ccb8e279c6bccbfdd4556/export/bin/com.spotify.Client") end),
 
 	-- Lock Screen
 	awful.key({ modkey, "Control"   },  "l", function()
@@ -581,13 +583,19 @@ client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
     -- if not awesome.startup then awful.client.setslave(c) end
-	c.shape = gears.shape.rounded_rect
+    if not c.maximized then
+        c.shape = gears.shape.rounded_rect
+    end
     if awesome.startup and
       not c.size_hints.user_position
       and not c.size_hints.program_position then
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
     end
+end)
+
+client.connect_signal("property::maximized", function (c)
+    c.shape = gears.shape.rectangle
 end)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.

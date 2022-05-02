@@ -3,5 +3,3 @@
 configuration {
 	show-icons:		true;
 }
-
-@import "/home/nsengupta5/.config/awesome/themes/sidebar.rasi"
