@@ -129,63 +129,9 @@ else
     })
 end
 
-
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
-                                     menu = mymainmenu })
-
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
-
--- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
-
--- {{{ Wibar
--- Create a textclock widget
-mytextclock = wibox.widget.textclock()
-
--- Create a wibox for each screen and add it
-local taglist_buttons = gears.table.join(
-                    awful.button({ }, 1, function(t) t:view_only() end),
-                    awful.button({ modkey }, 1, function(t)
-                                              if client.focus then
-                                                  client.focus:move_to_tag(t)
-                                              end
-                                          end),
-                    awful.button({ }, 3, awful.tag.viewtoggle),
-                    awful.button({ modkey }, 3, function(t)
-                                              if client.focus then
-                                                  client.focus:toggle_tag(t)
-                                              end
-                                          end),
-                    awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
-                    awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
-                )
-
-local tasklist_buttons = gears.table.join(
-                     awful.button({ }, 1, function (c)
-                                              if c == client.focus then
-                                                  c.minimized = true
-                                              else
-                                                  -- Without this, the following
-                                                  -- :isvisible() makes no sense
-                                                  c.minimized = false
-                                                  if not c:isvisible() and c.first_tag then
-                                                      c.first_tag:view_only()
-                                                  end
-                                                  -- This will also un-minimize
-                                                  -- the client, if needed
-                                                  client.focus = c
-                                                  c:raise()
-                                              end
-                                          end),
-                     awful.button({ }, 3, client_menu_toggle_fn()),
-                     awful.button({ }, 4, function ()
-                                              awful.client.focus.byidx(1)
-                                          end),
-                     awful.button({ }, 5, function ()
-                                              awful.client.focus.byidx(-1)
-                                          end))
 
 local function set_wallpaper(s)
     -- Wallpaper
@@ -208,60 +154,6 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Each screen has its own tag table.
     awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
-
-    -- Create a promptbox for each screen
-    s.mypromptbox = awful.widget.prompt()
-    -- Create an imagebox widget which will contain an icon indicating which layout we're using.
-    -- We need one layoutbox per screen.
-    s.mylayoutbox = awful.widget.layoutbox(s)
-    s.mylayoutbox:buttons(gears.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(-1) end),
-                           awful.button({ }, 4, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(-1) end)))
-    -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
-
-    -- Create a tasklist widget
-    -- s.mytasklist = awful.widget.tasklist(s)
-
-    -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
-
-    local sys_tray = wibox.layout.margin(wibox.widget.systray(), 5, 5, 5, 5)
-    local battery_widget = require("widgets.battery.battery")
---	local volume_widget = require("widgets.volume.volume")
-
-	beautiful.systray_icon_spacing = 20,
-
-    -- Add widgets to the wibox
-    s.mywibox:setup {
-		layout = wibox.layout.stack,
-		{
-			layout = wibox.layout.align.horizontal,
-			{ -- Left widgets
-				mylauncher,
-				s.mytaglist,
-				s.mypromptbox,
-				layout = wibox.layout.fixed.horizontal,
-			},
-			nil,
-			{ -- Right widgets
-				sys_tray,
-                -- wibox.widget.systray(),
-				layout = wibox.layout.fixed.horizontal,
-                spacing = 10,
-				battery_widget(),
---	            s.mylayoutbox,
-			},
-	    },
-		{
-			mytextclock,
-			valign = "center",
-			halign = "center",
-			layout = wibox.container.place
-		}
-	}
 end)
 -- }}}
 --
@@ -360,16 +252,6 @@ globalkeys = gears.table.join(
     awful.key({ modkey },            "d",     function () awful.util.spawn("rofi -combi-modi drun,window, -show combi -theme /usr/share/rofi/themes/onedark.rasi") end,
               {description = "run prompt", group = "launcher"}),
 
-    awful.key({ modkey }, "x",
-              function ()
-                  awful.prompt.run {
-                    prompt       = "Run Lua code: ",
-                    textbox      = awful.screen.focused().mypromptbox.widget,
-                    exe_callback = awful.util.eval,
-                    history_path = awful.util.get_cache_dir() .. "/history_eval"
-                  }
-              end,
-              {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
               {description = "show the menubar", group = "launcher"}),
@@ -583,9 +465,9 @@ client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
     -- if not awesome.startup then awful.client.setslave(c) end
-    if not c.maximized then
-        c.shape = gears.shape.rounded_rect
-    end
+    -- if not c.maximized then
+    --     c.shape = gears.shape.rounded_rect
+    -- end
     if awesome.startup and
       not c.size_hints.user_position
       and not c.size_hints.program_position then
@@ -654,7 +536,11 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 -- Autostart Applications
 awful.spawn.with_shell("nitrogen --restore")
-awful.util.spawn_with_shell("volumeicon &")
-awful.util.spawn_with_shell("nm-applet &")
+awful.util.spawn_with_shell("volumeicon")
+awful.util.spawn_with_shell("nm-applet")
+awful.util.spawn_with_shell("/usr/bin/emacs --daemon")
 awful.util.spawn_with_shell("~/.config/awesome/locker")
 awful.util.spawn_with_shell("~/.config/awesome/smartlock")
+awful.util.spawn_with_shell("~/.config/polybar/shapes/scripts/pywal.sh ~/.config/awesome/themes/onedark/mountains.jpg")
+awful.util.spawn_with_shell("~/.config/polybar/launch.sh --shapes")
+awful.util.spawn_with_shell("wal -R")

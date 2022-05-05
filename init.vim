@@ -39,6 +39,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'mhinz/vim-startify'
+Plug 'ervandew/supertab'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'sheerun/vim-polyglot'
@@ -51,6 +52,7 @@ Plug 'karb94/neoscroll.nvim'
 call plug#end()
 
 " Airline Settings
+let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='onedark'
 hi airline_tabfill ctermbg=NONE guibg=NONE

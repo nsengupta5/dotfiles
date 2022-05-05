@@ -25,3 +25,4 @@ ln -s ~/dotfiles/authorized_keys ~/.ssh/authorized_keys
 ln -s ~/dotfiles/clean ~/bin/clean
 ln -s ~/dotfiles/update ~/bin/update
 ln -s ~/dotfiles/allcolors ~/bin/allcolors
+ln -s ~/dotfiles/polybar ~/.config
