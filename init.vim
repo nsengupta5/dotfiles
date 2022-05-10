@@ -49,6 +49,7 @@ Plug 'honza/vim-snippets'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'karb94/neoscroll.nvim'
+Plug 'OmniSharp/omnisharp-vim'
 call plug#end()
 
 " Airline Settings
@@ -97,6 +98,7 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers=['eslint']
 let g:syntastic_python_checkers = ['python']
 let g:loaded_syntastic_java_javac_checker = 1
+let g:syntastic_cs_checkers = ['code_checker']
 
 " Remove background color
 hi Normal guibg=NONE ctermbg=NONE
