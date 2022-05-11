@@ -25,7 +25,7 @@ PATH="$PATH:/usr/local/go/bin"
 PATH="$PATH:$HOME/.local/bin"
 PATH="$PATH:$HOME/.npm-global/bin"
 PATH="$PATH:$HOME/Downloads/flutter/bin"
-PATH="$PATH:$HOME/.emacs.d/bin"
+# export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH
 
 # Set name of the theme to load --- if set to "random", it will
@@ -173,8 +173,6 @@ zinit light-mode for \
 zinit ice lucid wait"0a" from"gh-r" as"program" atload'eval "$(mcfly init zsh)"' 
 zinit light cantino/mcfly 
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH=$PATH:/home/nsengupta5/.spicetify
 
-(cat ~/.cache/wal/sequences &)
-source ~/.cache/wal/colors-tty.sh
+# (cat ~/.cache/wal/sequences &)
+# source ~/.cache/wal/colors-tty.sh
