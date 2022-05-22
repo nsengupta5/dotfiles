@@ -296,7 +296,7 @@ globalkeys = gears.table.join(
 		awful.util.spawn("flatpak run io.gitlab.librewolf-community") end),
 
 	awful.key({ modkey }, "q", function ()
-		awful.util.spawn("/var/lib/flatpak/app/com.spotify.Client/x86_64/stable/9f93956f3e387b0ba59ada9f5a802cf67a106327e92ccb8e279c6bccbfdd4556/export/bin/com.spotify.Client") end),
+        awful.util.spawn("/var/lib/flatpak/app/com.spotify.Client/x86_64/stable/4837437e1164c28ffd998a3ba8d1092a851321ce7e1f8880165ec41fbe760af2/export/bin/com.spotify.Client") end),
 
 	-- Lock Screen
 	awful.key({ modkey, "Control"   },  "l", function()
