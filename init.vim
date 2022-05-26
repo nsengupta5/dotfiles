@@ -50,6 +50,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'karb94/neoscroll.nvim'
 Plug 'OmniSharp/omnisharp-vim'
+Plug 'edluffy/hologram.nvim'
 call plug#end()
 
 " Airline Settings

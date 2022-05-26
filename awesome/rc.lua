@@ -537,6 +537,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- Autostart Applications
 awful.spawn.with_shell("nitrogen --restore")
 awful.util.spawn_with_shell("~/.config/awesome/locker")
+awful.util.spawn_with_shell("nm-applet")
 awful.util.spawn_with_shell("~/.config/awesome/smartlock")
 awful.util.spawn_with_shell("~/.config/polybar/shapes/scripts/pywal.sh ~/.config/awesome/themes/onedark/mountains.jpg")
 awful.util.spawn_with_shell("~/.config/polybar/launch.sh --shapes")
