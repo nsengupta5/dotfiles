@@ -8,7 +8,7 @@ local dpi = require("beautiful.xresources").apply_dpi
 
 -- {{{ Main
 local theme = {}
-theme.wallpaper = themes_path .. "onedark/mountains.jpg"
+theme.wallpaper = themes_path .. "onedark/purple-wallpaper.jpeg"
 -- }}}
 
 -- {{{ Styles
@@ -28,7 +28,7 @@ theme.bg_systray = theme.bg_normal
 theme.useless_gap   = dpi(5)
 theme.border_width  = dpi(2.0)
 theme.border_normal = "#0b1217"
-theme.border_focus  = "#8cbcd4"
+theme.border_focus  = "#50118c"
 theme.border_marked = "#CC9393"
 -- }}}
 

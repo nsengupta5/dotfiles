@@ -249,7 +249,7 @@ globalkeys = gears.table.join(
               {description = "restore minimized", group = "client"}),
 
     -- Prompt
-    awful.key({ modkey },            "d",     function () awful.util.spawn("rofi -combi-modi drun,window, -show combi -theme /usr/share/rofi/themes/onedark.rasi") end,
+    awful.key({ modkey },            "d",     function () awful.util.spawn("rofi -combi-modi drun,window, -show combi -theme /usr/share/rofi/themes/purple.rasi") end,
               {description = "run prompt", group = "launcher"}),
 
     -- Menubar
@@ -539,5 +539,5 @@ awful.spawn.with_shell("nitrogen --restore")
 awful.util.spawn_with_shell("~/.config/awesome/locker")
 awful.util.spawn_with_shell("nm-applet")
 awful.util.spawn_with_shell("~/.config/awesome/smartlock")
-awful.util.spawn_with_shell("~/.config/polybar/shapes/scripts/pywal.sh ~/.config/awesome/themes/onedark/mountains.jpg")
+awful.util.spawn_with_shell("~/.config/polybar/shapes/scripts/pywal.sh ~/.config/awesome/themes/onedark/purple-wallpaper.jpeg")
 awful.util.spawn_with_shell("~/.config/polybar/launch.sh --shapes")
