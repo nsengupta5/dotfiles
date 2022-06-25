@@ -21,10 +21,10 @@ if [ -d "$HOME/bin" ] ; then
 fi
 
 PATH="$PATH:$HOME/.cargo/bin"
-PATH="$PATH:/usr/local/go/bin"
+# PATH="$PATH:/usr/local/go/bin"
 PATH="$PATH:$HOME/.local/bin"
 PATH="$PATH:$HOME/.npm-global/bin"
-PATH="$PATH:$HOME/Downloads/flutter/bin"
+# PATH="$PATH:$HOME/Downloads/flutter/bin"
 # export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH
 
@@ -173,10 +173,6 @@ zinit light-mode for \
 zinit ice lucid wait"0a" from"gh-r" as"program" atload'eval "$(mcfly init zsh)"' 
 zinit light cantino/mcfly 
 
-
-# (cat ~/.cache/wal/sequences &)
-# source ~/.cache/wal/colors-tty.sh
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

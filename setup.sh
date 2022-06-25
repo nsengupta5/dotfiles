@@ -26,3 +26,4 @@ ln -s ~/dotfiles/clean ~/bin/clean
 ln -s ~/dotfiles/update ~/bin/update
 ln -s ~/dotfiles/allcolors ~/bin/allcolors
 ln -s ~/dotfiles/polybar ~/.config
+ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
