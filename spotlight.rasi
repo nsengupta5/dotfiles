@@ -27,8 +27,8 @@ window {
     background-color:   @bg0;
 
     location:       center;
-    width:          840;
-    y-offset:       -250;
+    width:          45%;
+    y-offset:       -280;
     border-radius:  8;
 }
 

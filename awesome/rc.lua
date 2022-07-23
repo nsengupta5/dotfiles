@@ -3,6 +3,7 @@ local screenshot = require("screenshot")
 local awful = require("awful")
 require("collision")()
 require("awful.autofocus")
+local revelation=require("revelation")
 -- Widget and layout library
 local wibox = require("wibox")
 -- Theme handling library
@@ -57,9 +58,7 @@ end
 -- beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), "onedark")
 beautiful.init(theme_path)
-
--- local nice = require("nice")
--- nice()
+revelation.init()
 
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
@@ -310,6 +309,9 @@ awful.key({ modkey },            "d",     function () awful.util.spawn("rofi -co
 awful.key({ modkey }, "p", function() menubar.show() end,
 {description = "show the menubar", group = "launcher"}),
 
+awful.key({ modkey }, "a", revelation,
+    {description = "show all open windows of workspace", group = "client"}),  
+
 -- Brightness
 awful.key({ }, "XF86MonBrightnessDown", function ()
     awful.util.spawn("light -U 15") end),
@@ -504,7 +506,7 @@ awful.key({ }, "XF86MonBrightnessDown", function ()
 
                                                 -- Add titlebars to normal clients and dialogs
                                                 { rule_any = {type = { "normal", "dialog" }
-                                            }, properties = { titlebars_enabled = false }
+                                            }, properties = { titlebars_enabled = true }
                                         },
 
                                         -- Set Firefox to always map on the tag named "2" on screen 1.
@@ -535,46 +537,46 @@ awful.key({ }, "XF86MonBrightnessDown", function ()
                                     end)
 
                                     -- Add a titlebar if titlebars_enabled is set to true in the rules.
-                                    client.connect_signal("request::titlebars", function(c)
-                                        -- buttons for the titlebar
-                                        local buttons = gears.table.join(
-                                        awful.button({ }, 1, function()
-                                            client.focus = c
-                                            c:raise()
-                                            awful.mouse.client.move(c)
-                                        end),
-                                        awful.button({ }, 3, function()
-                                            client.focus = c
-                                            c:raise()
-                                            awful.mouse.client.resize(c)
-                                        end)
-                                        )
+                                    -- client.connect_signal("request::titlebars", function(c)
+                                    --     -- buttons for the titlebar
+                                    --     local buttons = gears.table.join(
+                                    --     awful.button({ }, 1, function()
+                                    --         client.focus = c
+                                    --         c:raise()
+                                    --         awful.mouse.client.move(c)
+                                    --     end),
+                                    --     awful.button({ }, 3, function()
+                                    --         client.focus = c
+                                    --         c:raise()
+                                    --         awful.mouse.client.resize(c)
+                                    --     end)
+                                    --     )
 
-                                        awful.titlebar(c) : setup {
-                                            { -- Left
-                                            awful.titlebar.widget.iconwidget(c),
-                                            buttons = buttons,
-                                            layout  = wibox.layout.fixed.horizontal
-                                        },
-                                        { -- Middle
-                                        { -- Title
-                                        align  = "center",
-                                        widget = awful.titlebar.widget.titlewidget(c)
-                                    },
-                                    buttons = buttons,
-                                    layout  = wibox.layout.flex.horizontal
-                                },
-                                { -- Right
-                                awful.titlebar.widget.floatingbutton (c),
-                                awful.titlebar.widget.maximizedbutton(c),
-                                awful.titlebar.widget.stickybutton   (c),
-                                awful.titlebar.widget.ontopbutton    (c),
-                                awful.titlebar.widget.closebutton    (c),
-                                layout = wibox.layout.fixed.horizontal()
-                            },
-                            layout = wibox.layout.align.horizontal
-                        }
-                    end)
+                                    --     awful.titlebar(c) : setup {
+                                    --         { -- Left
+                                    --         awful.titlebar.widget.iconwidget(c),
+                                    --         buttons = buttons,
+                                    --         layout  = wibox.layout.fixed.horizontal
+                                    --     },
+                                    --     { -- Middle
+                                    --     { -- Title
+                                    --     align  = "center",
+                                    --     widget = awful.titlebar.widget.titlewidget(c)
+                                    -- },
+                                    -- buttons = buttons,
+                                    -- layout  = wibox.layout.flex.horizontal
+                                -- },
+                                -- { -- Right
+                                -- awful.titlebar.widget.floatingbutton (c),
+                                -- awful.titlebar.widget.maximizedbutton(c),
+                                -- awful.titlebar.widget.stickybutton   (c),
+                                -- awful.titlebar.widget.ontopbutton    (c),
+                                -- awful.titlebar.widget.closebutton    (c),
+                                -- layout = wibox.layout.fixed.horizontal()
+                            -- },
+                            -- layout = wibox.layout.align.horizontal
+                        -- }
+                    -- end)
 
                     -- Enable sloppy focus, so that focus follows mouse.
                     client.connect_signal("mouse::enter", function(c)
@@ -591,7 +593,9 @@ awful.key({ }, "XF86MonBrightnessDown", function ()
                     -- Autostart Applications
                     awful.spawn.with_shell("nitrogen --restore")
                     awful.util.spawn_with_shell("~/.config/awesome/locker")
+                    awful.util.spawn_with_shell("picom --config ~/.config/picom.conf --experimental-backends -b")
                     -- awful.util.spawn_with_shell("nm-applet")
                     awful.util.spawn_with_shell("~/.config/awesome/smartlock")
                     -- awful.util.spawn_with_shell("~/.config/polybar/shapes/scripts/pywal.sh ~/.config/awesome/themes/onedark/purple-wallpaper.jpeg")
                     awful.util.spawn_with_shell("~/.config/polybar/launch.sh --shapes")
+                    awful.util.spawn_with_shell("libinput-gestures-setup start")

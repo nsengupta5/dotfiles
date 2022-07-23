@@ -4,6 +4,10 @@ echo "Starting system update & cleanup"
 
 sudo dnf update
 
+sudo snap refresh
+
+sudo flatpak update
+
 sudo dnf clean dbcache
 
 echo "Finished system update & cleanup"

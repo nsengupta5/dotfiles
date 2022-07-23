@@ -27,3 +27,4 @@ ln -s ~/dotfiles/update ~/bin/update
 ln -s ~/dotfiles/allcolors ~/bin/allcolors
 ln -s ~/dotfiles/polybar ~/.config
 ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
+ln -s ~/dotfiles/picom.conf ~/.config/picom.conf
