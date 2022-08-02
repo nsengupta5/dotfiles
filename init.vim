@@ -15,7 +15,7 @@ set hidden
 set ignorecase
 set smartcase
 set nobackup
-set list lcs=tab:\|\ 
+set list lcs=tab:\|\
 
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'joshdick/onedark.vim'
@@ -28,18 +28,17 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plug 'lambdalisue/fern.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/syntastic'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'vimwiki/vimwiki'
+Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-git-status.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'mhinz/vim-startify'
-Plug 'ervandew/supertab'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'sheerun/vim-polyglot'
@@ -50,6 +49,8 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'karb94/neoscroll.nvim'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'antoinemadec/FixCursorHold.nvim'
 call plug#end()
 
 " Airline Settings
@@ -59,22 +60,21 @@ let g:airline_theme='base16_mellow_purple'
 hi airline_tabfill ctermbg=NONE guibg=NONE
 
 " Colorscheme
-
-let g:onedark_hide_endofbuffer = 1
-let g:onedark_termcolors = 256
-let g:onedark_terminal_italics = 1
+" let g:onedark_hide_endofbuffer = 1
+" let g:onedark_termcolors = 256
+" let g:onedark_terminal_italics = 1
 
 colorscheme catppuccin_mocha
 
 if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+if (has("termguicolors"))
+  set termguicolors
 endif
 
 " Buffer and Tab Navigation Keybindings
@@ -83,6 +83,10 @@ noremap <S-h> gT
 nnoremap <PageUp>   :bprevious<CR>
 nnoremap <PageDown> :bnext<CR>
 nnoremap gb :buffers<CR>:buffer<Space>
+
+" Coc Settings
+inoremap <expr> <Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
+inoremap <expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
 
 " Markdown Preview Settings
 let g:mkdp_browser = '/opt/brave.com/brave/brave'
@@ -106,6 +110,9 @@ let g:syntastic_cs_checkers = ['code_checker']
 " Remove background color
 hi Normal guibg=NONE ctermbg=NONE
 
+" FixCursorHold Settings
+let g:cursorhold_updatetime = 100
+
 " Fern Settings
 let g:fern#renderer = "nerdfont"
 let g:fern#drawer_width = 40
@@ -113,26 +120,20 @@ nnoremap <silent> <C-t> :Fern . -drawer -toggle<CR>
 nnoremap <silent> <C-n> :Fern . -drawer -reveal=%<CR>
 
 function! s:init_fern() abort
-	" Use 'select' instead of 'edit' for default 'open' action
-	nmap <buffer> R <Plug>(fern-action-rename)
-	nmap <buffer> M <Plug>(fern-action-move)
-	nmap <buffer> C <Plug>(fern-action-copy)
-	nmap <buffer> T <Plug>(fern-action-new-file)
-	nmap <buffer> D <Plug>(fern-action-new-dir)
-	nmap <buffer> dd <Plug>(fern-action-remove)
-	nmap <buffer> O <Plug>(fern-action-open:tabedit)
+  " Use 'select' instead of 'edit' for default 'open' action
+  nmap <buffer> R <Plug>(fern-action-rename)
+  nmap <buffer> M <Plug>(fern-action-move)
+  nmap <buffer> C <Plug>(fern-action-copy)
+  nmap <buffer> T <Plug>(fern-action-new-file)
+  nmap <buffer> D <Plug>(fern-action-new-dir)
+  nmap <buffer> dd <Plug>(fern-action-remove)
+  nmap <buffer> O <Plug>(fern-action-open:tabedit)
 endfunction
 
 augroup fern-custom
   autocmd! *
   autocmd FileType fern call s:init_fern()
 augroup END
-
-" Coc Settings
-
-" use <tab> for trigger completion and navigate to the next complete item
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"     \ coc#refresh()
 
 " MarkdownImage Settings
 autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownClipboardImage()<CR>
@@ -142,23 +143,23 @@ autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownCli
 
 " VimWiki Settings
 let g:vimwiki_list = [{
-	\ 'path': '~/vimwiki',
-	\ 'template_path': '~/vimwiki/templates/',
-	\ 'template_default': 'default',
-	\ 'syntax': 'markdown',
-	\ 'ext': '.md',
-	\ 'path_html': '~/vimwiki/site_html/',
-	\ 'custom_wiki2html': 'vimwiki_markdown',
-	\ 'template_ext': '.tpl'}]
+      \ 'path': '~/vimwiki',
+      \ 'template_path': '~/vimwiki/templates/',
+      \ 'template_default': 'default',
+      \ 'syntax': 'markdown',
+      \ 'ext': '.md',
+      \ 'path_html': '~/vimwiki/site_html/',
+      \ 'custom_wiki2html': 'vimwiki_markdown',
+      \ 'template_ext': '.tpl'}]
 
 let g:vimwiki_global_ext = 0
 
 " FZF Config
 " This is the default extra key bindings
 let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
+      \ 'ctrl-t': 'tab split',
+      \ 'ctrl-x': 'split',
+      \ 'ctrl-v': 'vsplit' }
 
 " Enable per-command history.
 " CTRL-N and CTRL-P will be automatically bound to next-history and
@@ -188,30 +189,30 @@ let $FZF_DEFAULT_COMMAND="rg --files --hidden"
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+      \ { 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Comment'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Statement'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'border':  ['fg', 'Ignore'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment'] }
 
 "Get Files
 command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
 
 
 " Get text in files with Rg
 command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
+      \ call fzf#vim#grep(
+      \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+      \   fzf#vim#with_preview(), <bang>0)
 
 " Ripgrep advanced
 function! RipgrepFzf(query, fullscreen)
@@ -226,30 +227,24 @@ command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
 " Git grep
 command! -bang -nargs=* GGrep
-  \ call fzf#vim#grep(
-  \   'git grep --line-number '.shellescape(<q-args>), 0,
-  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+      \ call fzf#vim#grep(
+      \   'git grep --line-number '.shellescape(<q-args>), 0,
+      \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 
 " Startify Settings
 let g:startify_session_dir = '~/.config/nvim/session'
 let g:startify_lists = [
-          \ { 'type': 'files',     'header': ['   Files']            },
-          \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
-          \ { 'type': 'sessions',  'header': ['   Sessions']       },
-          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-          \ ]
+      \ { 'type': 'files',     'header': ['   Files']            },
+      \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
+      \ { 'type': 'sessions',  'header': ['   Sessions']       },
+      \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+      \ ]
 
 let g:startify_enable_special = 0
 let g:startify_custom_header = [
-			\ '     _   __                _              ____          ' ,
-			\ '    / | / /__  ____ _   __(_)___ ___     / __ \____  ___ ',
-			\ '   /  |/ / _ \/ __ \ | / / / __ `__ \   / / / / __ \/ _ \',
-			\ '  / /|  /  __/ /_/ / |/ / / / / / / /  / /_/ / / / /  __/',
-			\ ' /_/ |_/\___/\____/|___/_/_/ /_/ /_/   \____/_/ /_/\___/ ',
-			\]
-
-" Ranger Settings
-let g:rnvimr_ex_enable = 1
-nmap <space>r :RnvimrToggle<CR>
-" Change the border's color
-let g:rnvimr_border_attr = {'fg': 14, 'bg': -1}
+      \ '     _   __                _         ' ,
+      \ '    / | / /__  ____ _   __(_)___ ___ ',
+      \ '   /  |/ / _ \/ __ \ | / / / __ `__ \',
+      \ '  / /|  /  __/ /_/ / |/ / / / / / / /',
+      \ ' /_/ |_/\___/\____/|___/_/_/ /_/ /_/ ',
+      \]

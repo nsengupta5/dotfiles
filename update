@@ -8,6 +8,8 @@ sudo snap refresh
 
 sudo flatpak update
 
+op update
+
 sudo dnf clean dbcache
 
 echo "Finished system update & cleanup"

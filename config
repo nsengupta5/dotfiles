@@ -55,6 +55,7 @@ bindsym $mod+Shift+c kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id "rofi -combi-modi 'drun,window' -show combi -theme /usr/share/rofi/themes/spotlight.rasi"
+bindsym $mod+Shift+w exec --no-startup-id "rofi -show window -theme /usr/share/rofi/themes/spotlight.rasi"
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -62,10 +63,10 @@ bindsym $mod+d exec --no-startup-id "rofi -combi-modi 'drun,window' -show combi 
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+h focus left
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -74,10 +75,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+h move left
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -86,7 +87,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+g split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -115,6 +116,10 @@ bindsym $mod+p exec /var/lib/flatpak/app/com.spotify.Client/x86_64/stable/active
 bindsym $mod+Ctrl+l exec betterlockscreen -l
 bindsym $mod+q exec ~/.config/polybar/shapes/scripts/powermenu.sh
 bindsym $mod+n exec networkmanager_dmenu
+
+# Scratchpad
+bindsym $mod+minus scratchpad show
+bindsym $mod+Shift+minus move scratchpad
 
 # Function Keys Keybindings
 bindsym XF86AudioPlay exec playerctl play-pause
