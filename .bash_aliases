@@ -12,19 +12,22 @@ alias la='ls -lah'
 alias lclips='cat ~/clipper_history'
 alias ls='exa -al --color=always --group-directories-first'
 alias md='mkdir -p'
-alias open='xdg-open'
 alias pip='pip3'
-alias python='python3.10'
 alias sqlite='sqlite3'
-alias tx='tmuxinator start'
 alias uptime='uptime --pretty'
 alias vpn='protonvpn-cli'
 alias yt='mpsyt'
 alias ytclear='rm ~/.config/mps-youtube/cache_py_*'
 alias ispt="spotifyd"
-alias getp='sudo apt-get install'
-alias congl='ssh -D 8123 -f -C -q -N ns214@ns214.host.cs.st-andrews.ac.uk'
+alias open="xdg-open"
+alias termopen="~/Downloads/termpdf.py/termpdf.py"
 alias wordle='ssh clidle.ddns.net -p 3000'
+alias fd='fd --hidden --no-ignore'
+alias tuir='tuir --enable-media'
+
+# Temporary Aliases
+alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.11.1-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
+alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.9-complete.jar.jar:$CLASSPATH" org.antlr.v4.gui.TestRig'
 
 # Spotify Aliases
 alias dlsong='spt playback --dislike'
@@ -133,6 +136,22 @@ ptube () {
 		fi
 	else
 		"mpv not installed"
+	fi
+}
+
+# Sends command output to phone via KDE Connect
+send_comm() {
+	if command -v kdeconnect-cli > /dev/null 2>&1 ;
+	then
+		if [ $# -eq 0 ]
+		then
+			echo "ERROR: No arguments provided"
+		else
+			QUERY="$1"	
+			kdeconnect-cli -d $(kdeconnect-cli -a --id-only) --ping-msg $("$QUERY")
+		fi
+	else
+		"kdeconnect-cli not installed"
 	fi
 }
 

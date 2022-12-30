@@ -133,7 +133,7 @@ lock() {
         --image "$image" \
         --color "$bgcolor" \
         --screen "$display_on" \
-        --ind-pos="x+755:y+h-70" \
+        --ind-pos="x+985:y+h-90" \
         --radius=25 \
         --ring-width=5 \
         --inside-color="$insidecolor" \
@@ -147,7 +147,7 @@ lock() {
         --keyhl-color="$keyhlcolor" \
         --bshl-color="$bshlcolor" \
         --clock --force-clock \
-        --time-pos="ix-63:iy-60" \
+        --time-pos="ix-60:iy-80" \
         --time-align 1 \
         --time-str "$time_format" \
         --time-color="$timecolor" \
@@ -160,7 +160,7 @@ lock() {
         --greeter-color="$greetercolor" \
         --greeter-font="$font" \
         --greeter-size="$fontmd" \
-        --layout-pos="ix-965:iy+32" \
+        --layout-pos="ix-1165:iy+52" \
         --layout-align 1 \
         --layout-color="$layoutcolor" \
         --layout-font="$font" \
@@ -215,7 +215,7 @@ failsafe() {
         --keyhl-color="$keyhlcolor" \
         --bshl-color="$bshlcolor" \
         --clock --force-clock \
-        --time-pos="ix-265:iy-10" \
+        --time-pos="ix-165:iy-10" \
         --time-align 1 \
         --time-str "$time_format" \
         --time-color="$timecolor" \
@@ -228,7 +228,7 @@ failsafe() {
         --greeter-color="$greetercolor" \
         --greeter-font="$font" \
         --greeter-size="$fontmd" \
-        --layout-pos="ix-265:iy+32" \
+        --layout-pos="ix-165:iy+32" \
         --layout-align 1 \
         --layout-color="$layoutcolor" \
         --layout-font="$font" \

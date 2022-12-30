@@ -1,5 +1,3 @@
-#!/bin/zsh
-
-exec xautolock -detectsleep -time 3 -locker "betterlockscreen -l"
-	
-	
+#!/bin/bash
+# Run xidlehook
+xidlehook --not-when-fullscreen --not-when-audio --timer 10 'light -S 10' 'light -S 50' --timer 10 'light -S 50; betterlockscreen -l' '' --timer 3600 'systemctl suspend' ''

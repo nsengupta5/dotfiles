@@ -19,6 +19,9 @@ export XDG_DATA_HOME=$HOME/.local/share
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_STATE_HOME=$HOME/.local/state
 export XDG_CACHE_HOME=$HOME/.cache
+export CLASSPATH=".:/usr/local/lib/antlr-4.7.2-complete.jar:$CLASSPATH"
+export CHROME_EXECUTABLE=/usr/bin/brave-browser
+
 
 if [ -d "$HOME/bin" ] ; then
   PATH="$PATH:$HOME/bin"
@@ -28,7 +31,9 @@ PATH="$PATH:$HOME/.cargo/bin"
 PATH="$PATH:/usr/local/go/bin"
 PATH="$PATH:$HOME/.local/bin"
 PATH="$PATH:$HOME/.npm-global/bin"
+# PATH="$PATH:$HOME/.emacs.d/bin"
 # PATH="$PATH:$HOME/Downloads/flutter/bin"
+# PATH="$PATH:$HOME/Android/cmdline-tools/tools/bin"
 # export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH
 
@@ -107,6 +112,7 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 source $ZSH/oh-my-zsh.sh
 
 source ~/.bash_aliases
+source /usr/share/fzf/shell/key-bindings.zsh
 
 # User configuration
 
@@ -119,7 +125,7 @@ source ~/.bash_aliases
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#   export EDITOR='nvim'
 # fi
 
 # Compilation flags
@@ -137,8 +143,6 @@ source ~/.bash_aliases
 # Add colors to Terminal
 export CLICOLOR=1
 export LS_COLORS=ExFxBxDxCxegedabagacad
-# For pywal
-#cat ~/.cache/wal/sequences
 
 eval "$(fasd --init auto)"
 
@@ -180,3 +184,6 @@ zinit light cantino/mcfly
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+if [ -e /home/nsengupta5/.nix-profile/etc/profile.d/nix.sh ]; then . /home/nsengupta5/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+# (cat ~/.cache/wal/sequences &)

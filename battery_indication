@@ -1,7 +1,7 @@
 #!/bin/bash
 
-CAPACITY=$(cat /sys/class/power_supply/BAT1/capacity)
-STATUS=$(cat /sys/class/power_supply/BAT1/status)
+CAPACITY=$(cat /sys/class/power_supply/BAT0/capacity)
+STATUS=$(cat /sys/class/power_supply/BAT0/status)
 IS_LOW=$(echo "$CAPACITY < 15" | bc)
 
 if [[ IS_LOW -eq 1 && $STATUS == "Discharging" ]] 

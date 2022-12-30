@@ -8,8 +8,18 @@ sudo snap refresh
 
 sudo flatpak update
 
-op update
+nvim --headless +PlugUpdate +qa
+
+echo
+
+nvim --headless +PlugUpgrade +qa
+
+echo
 
 sudo dnf clean dbcache
+
+sudo fwupdmgr refresh
+
+sudo fwupdmgr update
 
 echo "Finished system update & cleanup"

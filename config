@@ -36,10 +36,10 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/volume.sh up
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/volume.sh down
 # bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id ~/.config/i3/volume.sh mute
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -110,12 +110,16 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # Custom Keybindings
+bindsym $mod+Ctrl+h exec kitty -e htop
+bindsym $mod+Ctrl+n exec kitty -e nvim
+bindsym $mod+Ctrl+r exec kitty -e ranger
 bindsym $mod+b exec /opt/brave.com/brave/brave
-bindsym $mod+m exec flatpak run io.gitlab.librewolf-community
+bindsym $mod+m exec /usr/bin/librewolf
 bindsym $mod+p exec /var/lib/flatpak/app/com.spotify.Client/x86_64/stable/active/export/bin/com.spotify.Client
 bindsym $mod+Ctrl+l exec betterlockscreen -l
-bindsym $mod+q exec ~/.config/polybar/shapes/scripts/powermenu.sh
+bindsym $mod+q exec ~/.config/polybar/panels/scripts/powermenu.sh 
 bindsym $mod+n exec networkmanager_dmenu
+bindsym Mod1+Tab exec rofi -show window -theme spotlight.rasi
 
 # Scratchpad
 bindsym $mod+minus scratchpad show
@@ -126,18 +130,18 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
-bindsym XF86MonBrightnessUp exec light -A 15
-bindsym XF86MonBrightnessDown exec light -U 15
+bindsym XF86MonBrightnessUp exec ~/.config/i3/brightness.sh up
+bindsym XF86MonBrightnessDown exec ~/.config/i3/brightness.sh down
 
 # Screenshots
-bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date).png"
-bindsym Shift+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date).png"
-bindsym $mod+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date).png"
+bindsym Ctrl+Print exec --no-startup-id maim "/home/$USER/Pictures/$(date).png"
+bindsym Ctrl+Shift+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date).png"
+bindsym Ctrl+$mod+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date).png"
 
 ## Clipboard Screenshots
-bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
-bindsym Ctrl+Shift+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
-bindsym Ctrl+$mod+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
+bindsym Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
+bindsym Shift+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+bindsym $mod+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -194,16 +198,16 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym l resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym j resize shrink height 10 px or 10 ppt
-        bindsym h resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Right resize shrink width 10 px or 10 ppt
-        bindsym Up resize grow height 10 px or 10 ppt
-        bindsym Down resize shrink height 10 px or 10 ppt
-        bindsym Left resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
 
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
@@ -223,10 +227,9 @@ gaps inner 8
 # }
 
 # Autostart applications
-exec --no-startup-id feh --bg-scale ~/.config/i3/themes/macos/purple-wallpaper.jpeg
-exec --no-startup-id ~/.config/polybar/launch.sh --shapes
+exec --no-startup-id feh --bg-scale ~/.config/i3/themes/macos/nord-sea.png
+exec --no-startup-id ~/.config/polybar/launch.sh --panels
 exec --no-startup-id picom --config ~/.config/picom.conf --experimental-backends -b
 exec --no-startup-id libinput-gestures-setup start
-exec --no-startup-id ~/.config/i3/locker
-exec --no-startup-id ~/.config/i3/smartlock
+exec --no-startup-id xidlehook --not-when-fullscreen --not-when-audio --timer 120 'light -S 10' 'light -S 80' --timer 10 'light -S 80; betterlockscreen -l' '' --timer 600 'systemctl suspend' ''
 exec xrdb -merge ~/.Xresources
