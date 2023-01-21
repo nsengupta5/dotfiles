@@ -41,7 +41,7 @@ export PATH
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -186,4 +186,4 @@ zinit light cantino/mcfly
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 if [ -e /home/nsengupta5/.nix-profile/etc/profile.d/nix.sh ]; then . /home/nsengupta5/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-# (cat ~/.cache/wal/sequences &)
+(\cat ~/.cache/wal/sequences &)

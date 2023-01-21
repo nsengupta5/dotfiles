@@ -28,7 +28,7 @@ exec --no-startup-id dex-autostart --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -227,9 +227,10 @@ gaps inner 8
 # }
 
 # Autostart applications
-exec --no-startup-id feh --bg-scale ~/.config/i3/themes/macos/nord-sea.png
+exec xrdb -merge ~/.Xresources
+exec xrandr --output eDP-1 --mode 1920x1200
+exec --no-startup-id feh --bg-scale ~/.config/i3/themes/macos/ice-mountains.jpg
 exec --no-startup-id ~/.config/polybar/launch.sh --panels
 exec --no-startup-id picom --config ~/.config/picom.conf --experimental-backends -b
 exec --no-startup-id libinput-gestures-setup start
 exec --no-startup-id xidlehook --not-when-fullscreen --not-when-audio --timer 120 'light -S 10' 'light -S 80' --timer 10 'light -S 80; betterlockscreen -l' '' --timer 600 'systemctl suspend' ''
-exec xrdb -merge ~/.Xresources

@@ -33,7 +33,8 @@ Plug 'vimwiki/vimwiki'
 Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-git-status.vim'
 Plug 'ryanoasis/vim-devicons'
-Plug 'shaunsingh/nord.nvim'
+" Plug 'shaunsingh/nord.nvim'
+Plug 'savq/melange-nvim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'lambdalisue/nerdfont.vim'
@@ -57,7 +58,7 @@ call plug#end()
 " Airline Settings
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='base16'
+let g:airline_theme='minimalist'
 hi airline_tabfill ctermbg=NONE guibg=NONE
 
 " Colorscheme
@@ -65,7 +66,7 @@ hi airline_tabfill ctermbg=NONE guibg=NONE
 " let g:onedark_termcolors = 256
 " let g:onedark_terminal_italics = 1
  " colorscheme catppuccin_mocha
-colorscheme nord
+colorscheme melange
 
  if (has("nvim"))
   "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
