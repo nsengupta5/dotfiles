@@ -377,3 +377,9 @@ google () {
 		echo "w3m not installed"
 	fi
 }
+
+pjava () {
+	rm -rf /tmp/processing
+	mkdir /tmp/processing
+	/home/nsengupta5/Downloads/Processing/processing-4.1.2/processing-java --output=/tmp/processing/ --force --sketch=$1 --run
+}

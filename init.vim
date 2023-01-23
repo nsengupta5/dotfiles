@@ -24,7 +24,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
-" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/syntastic'
@@ -33,9 +32,8 @@ Plug 'vimwiki/vimwiki'
 Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-git-status.vim'
 Plug 'ryanoasis/vim-devicons'
-" Plug 'shaunsingh/nord.nvim'
-Plug 'savq/melange-nvim'
 Plug 'godlygeek/tabular'
+Plug 'sainnhe/gruvbox-material'
 Plug 'plasticboy/vim-markdown'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'jiangmiao/auto-pairs'
@@ -53,12 +51,16 @@ Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'mhinz/vim-startify'
 Plug 'mfussenegger/nvim-dap'
+Plug 'sophacles/vim-processing'
 call plug#end()
+
+" Gruvbox Settings
+let g:gruvbox_material_transparent_background = 1
 
 " Airline Settings
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='minimalist'
+let g:airline_theme='gruvbox_material'
 hi airline_tabfill ctermbg=NONE guibg=NONE
 
 " Colorscheme
@@ -66,7 +68,7 @@ hi airline_tabfill ctermbg=NONE guibg=NONE
 " let g:onedark_termcolors = 256
 " let g:onedark_terminal_italics = 1
  " colorscheme catppuccin_mocha
-colorscheme melange
+colorscheme gruvbox-material
 
  if (has("nvim"))
   "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
