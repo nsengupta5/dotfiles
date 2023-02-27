@@ -39,7 +39,6 @@ Plug 'lambdalisue/nerdfont.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'sheerun/vim-polyglot'
 Plug 'unblevable/quick-scope'
-Plug 'ferrine/md-img-paste.vim'
 Plug 'honza/vim-snippets'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
@@ -171,6 +170,9 @@ nnoremap <C-f> <cmd>Telescope find_files<cr>
 nnoremap <C-g> <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" Neoscroll Settings
+lua require('neoscroll').setup()
 
 " Starify Settings
 let g:startify_custom_header = [
