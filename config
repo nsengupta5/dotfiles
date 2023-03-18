@@ -113,6 +113,7 @@ bindsym $mod+a focus parent
 bindsym $mod+Ctrl+h exec kitty -e htop
 bindsym $mod+Ctrl+n exec kitty -e nvim
 bindsym $mod+Ctrl+r exec kitty -e ranger
+bindsym $mod+Ctrl+f exec rofi-noter
 bindsym $mod+b exec /opt/brave.com/brave/brave
 bindsym $mod+m exec /usr/bin/librewolf
 bindsym $mod+p exec /var/lib/flatpak/app/com.spotify.Client/x86_64/stable/active/export/bin/com.spotify.Client
@@ -229,7 +230,7 @@ gaps inner 8
 # Autostart applications
 exec xrdb -merge ~/.Xresources
 exec xrandr --output eDP-1 --mode 1920x1200
-exec --no-startup-id feh --bg-scale ~/.config/i3/themes/macos/leaves.png
+exec --no-startup-id feh --bg-scale ~/.config/i3/themes/macos/moon.jpg
 exec --no-startup-id picom --config ~/.config/picom.conf --experimental-backends -b
 exec --no-startup-id libinput-gestures-setup start
 exec --no-startup-id ~/.config/polybar/launch.sh --panels

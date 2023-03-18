@@ -18,6 +18,7 @@ set nobackup
 
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'joshdick/onedark.vim'
+Plug 'gkeep/iceberg-dark'
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline-themes'
@@ -51,6 +52,7 @@ Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'mhinz/vim-startify'
 Plug 'mfussenegger/nvim-dap'
 Plug 'sophacles/vim-processing'
+Plug 'tpope/vim-obsession'
 call plug#end()
 
 " Gruvbox Settings
@@ -59,15 +61,17 @@ let g:gruvbox_material_transparent_background = 1
 " Airline Settings
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='gruvbox_material'
+let g:airline_theme='icebergDark'
 hi airline_tabfill ctermbg=NONE guibg=NONE
+hi airline_c  ctermbg=NONE guibg=NONE
 
 " Colorscheme
 " let g:onedark_hide_endofbuffer = 1
 " let g:onedark_termcolors = 256
 " let g:onedark_terminal_italics = 1
- " colorscheme catppuccin_mocha
-colorscheme gruvbox-material
+" colorscheme onedark
+colorscheme iceberg
+" colorscheme gruvbox-material
 
  if (has("nvim"))
   "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
@@ -109,7 +113,8 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers=['eslint']
 let g:syntastic_python_checkers = ['python']
-let g:syntastic_java_checkers = []
+let g:syntastic_java_checkers = ['javac']
+let g:syntastic_processing_checkers = ['javac']
 let g:loaded_syntastic_java_javac_checker = 1
 let g:syntastic_cs_checkers = ['code_checker']
 
@@ -164,6 +169,9 @@ let g:vimwiki_list = [{
 
 let g:vimwiki_global_ext = 0
 
+" Neoscroll Settings
+lua require('neoscroll').setup()
+
 " Telescope Settings
 nnoremap <leader>fr <cmd>Telescope oldfiles<CR>
 nnoremap <C-f> <cmd>Telescope find_files<cr>
@@ -171,8 +179,6 @@ nnoremap <C-g> <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
-" Neoscroll Settings
-lua require('neoscroll').setup()
 
 " Starify Settings
 let g:startify_custom_header = [

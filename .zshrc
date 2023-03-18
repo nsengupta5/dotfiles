@@ -21,7 +21,7 @@ export XDG_STATE_HOME=$HOME/.local/state
 export XDG_CACHE_HOME=$HOME/.cache
 export CLASSPATH=".:/usr/local/lib/antlr-4.7.2-complete.jar:$CLASSPATH"
 export CHROME_EXECUTABLE=/usr/bin/brave-browser
-
+export LIBBY_OUTPUT_DIR="$HOME/Documents/Books"
 
 if [ -d "$HOME/bin" ] ; then
   PATH="$PATH:$HOME/bin"
@@ -29,6 +29,7 @@ fi
 
 PATH="$PATH:$HOME/.cargo/bin"
 PATH="$PATH:/usr/local/go/bin"
+PATH="$PATH:$HOME/go/bin"
 PATH="$PATH:$HOME/.local/bin"
 PATH="$PATH:$HOME/.npm-global/bin"
 PATH="$PATH:$HOME/Downloads/Processing/processing-4.1.2/"
