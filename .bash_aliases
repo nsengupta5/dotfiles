@@ -378,6 +378,18 @@ google () {
 	fi
 }
 
+# Executes a ChatGPT search
+gpt () {
+	if [ $# -eq 0 ]
+	then
+		chatgpt
+	else
+		QUERY="$(chain " " "$@")" 
+		echo $QUERY
+		chatgpt "$QUERY" > tmp.md; glow tmp.md; rm tmp.md
+	fi
+}
+
 pjava () {
 	rm -rf /tmp/processing
 	mkdir /tmp/processing
