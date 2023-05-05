@@ -1,4 +1,5 @@
 syntax on
+filetype plugin indent on
 set number
 set relativenumber
 set autoindent
@@ -52,7 +53,13 @@ Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'mhinz/vim-startify'
 Plug 'mfussenegger/nvim-dap'
 Plug 'sophacles/vim-processing'
+Plug 'lervag/vimtex'
 Plug 'tpope/vim-obsession'
+Plug 'mfussenegger/nvim-dap'
+Plug 'dylanaraps/wal.vim'
+Plug 'github/copilot.vim'
+Plug 'jackMort/ChatGPT.nvim'
+Plug 'MunifTanjim/nui.nvim'
 call plug#end()
 
 " Gruvbox Settings
@@ -61,7 +68,7 @@ let g:gruvbox_material_transparent_background = 1
 " Airline Settings
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='icebergDark'
+let g:airline_theme='wal'
 hi airline_tabfill ctermbg=NONE guibg=NONE
 hi airline_c  ctermbg=NONE guibg=NONE
 
@@ -70,7 +77,8 @@ hi airline_c  ctermbg=NONE guibg=NONE
 " let g:onedark_termcolors = 256
 " let g:onedark_terminal_italics = 1
 " colorscheme onedark
-colorscheme iceberg
+" colorscheme iceberg
+colorscheme wal
 " colorscheme gruvbox-material
 
  if (has("nvim"))
@@ -81,8 +89,9 @@ endif
 "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
 " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
 if (has("termguicolors"))
-  set termguicolors
+  " set termguicolors
 endif
+highlight LineNr ctermfg=None ctermbg=None
 
 " Buffer and Tab Navigation Keybindings
 noremap <S-l> gt
@@ -90,6 +99,9 @@ noremap <S-h> gT
 nnoremap <PageUp>   :bprevious<CR>
 nnoremap <PageDown> :bnext<CR>
 nnoremap gb :buffers<CR>:buffer<Space>
+
+" ChatGPT Settings
+lua require('chatgpt').setup()
 
 " Coc Settings
 inoremap <expr> <Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
@@ -178,6 +190,10 @@ nnoremap <C-f> <cmd>Telescope find_files<cr>
 nnoremap <C-g> <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" VimTex Settings
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_compiler_method = 'latexrun'
 
 
 " Starify Settings

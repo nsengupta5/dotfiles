@@ -230,7 +230,7 @@ gaps inner 8
 # Autostart applications
 exec xrdb -merge ~/.Xresources
 exec xrandr --output eDP-1 --mode 1920x1200
-exec --no-startup-id feh --bg-scale ~/.config/i3/themes/macos/moon.jpg
+exec --no-startup-id feh --bg-scale ~/.config/i3/themes/macos/blue_leaves.jpeg
 exec --no-startup-id picom --config ~/.config/picom.conf --experimental-backends -b
 exec --no-startup-id libinput-gestures-setup start
 exec --no-startup-id ~/.config/polybar/launch.sh --panels

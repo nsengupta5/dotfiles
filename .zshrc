@@ -22,6 +22,7 @@ export XDG_CACHE_HOME=$HOME/.cache
 export CLASSPATH=".:/usr/local/lib/antlr-4.7.2-complete.jar:$CLASSPATH"
 export CHROME_EXECUTABLE=/usr/bin/brave-browser
 export LIBBY_OUTPUT_DIR="$HOME/Documents/Books"
+export OPENAI_API_KEY="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"
 
 if [ -d "$HOME/bin" ] ; then
   PATH="$PATH:$HOME/bin"
