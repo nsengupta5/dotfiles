@@ -20,8 +20,8 @@ set nobackup
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'joshdick/onedark.vim'
 Plug 'gkeep/iceberg-dark'
-Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'tpope/vim-surround'
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -58,7 +58,6 @@ Plug 'tpope/vim-obsession'
 Plug 'mfussenegger/nvim-dap'
 Plug 'dylanaraps/wal.vim'
 Plug 'github/copilot.vim'
-Plug 'jackMort/ChatGPT.nvim'
 Plug 'MunifTanjim/nui.nvim'
 call plug#end()
 
@@ -78,10 +77,12 @@ hi airline_c  ctermbg=NONE guibg=NONE
 " let g:onedark_terminal_italics = 1
 " colorscheme onedark
 " colorscheme iceberg
-colorscheme wal
+" colorscheme wal
 " colorscheme gruvbox-material
 
- if (has("nvim"))
+colorscheme catppuccin-frappe
+
+if (has("nvim"))
   "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
@@ -99,9 +100,6 @@ noremap <S-h> gT
 nnoremap <PageUp>   :bprevious<CR>
 nnoremap <PageDown> :bnext<CR>
 nnoremap gb :buffers<CR>:buffer<Space>
-
-" ChatGPT Settings
-lua require('chatgpt').setup()
 
 " Coc Settings
 inoremap <expr> <Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"

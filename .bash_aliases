@@ -24,6 +24,7 @@ alias termopen="~/Downloads/termpdf.py/termpdf.py"
 alias wordle='ssh clidle.ddns.net -p 3000'
 alias fd='fd --hidden --no-ignore'
 alias tuir='tuir --enable-media'
+alias prime-run='__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia'
 
 # Temporary Aliases
 alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.11.1-complete.jar:$CLASSPATH" org.antlr.v4.Tool'

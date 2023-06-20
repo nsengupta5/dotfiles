@@ -10,14 +10,15 @@ function get_volume {
 }
 
 function is_mute {
-    amixer get Master | grep '%' | \grep -oE '[^ ]+$' | grep off > /dev/null
+	pactl list sinks | \grep 'Mute:' | awk '{print $2}'
+    # amixer get Master | grep '%' | \grep -oE '[^ ]+$' | grep off > /dev/null
 }
 
 function send_notification {
     volume=`get_volume`
     # Make the bar with the special character ─ (it's not dash -)
     # https://en.wikipedia.org/wiki/Box-drawing_character
-    bar=$(seq -s "─" $(($volume / 2)) | sed 's/[0-9]//g')
+    bar=$(seq -s "─" $(($volume / 3)) | sed 's/[0-9]//g')
     # Send the notification
     dunstify -i /usr/share/icons/mono-dark-flattr-icons/status/scalable/audio-volume-high-panel.svg -r 2593 -u normal "$bar"
 }
@@ -25,23 +26,23 @@ function send_notification {
 case $1 in
     up)
 	# Set the volume on (if it was muted)
-	pactl set-source-mute @DEFAULT_SOURCE@ toggle 
+	if [[ `is_mute` == "yes" ]] ; then
+		pactl set-sink-mute 0 false
+	fi
 	# Up the volume (+ 5%)
-	amixer set Master 5%+
+	pactl set-sink-volume @DEFAULT_SINK@ +5%
 	send_notification
 	;;
     down)
-	pactl set-source-mute @DEFAULT_SOURCE@ toggle 
-	amixer set Master 5%-
+	# Set the volume on (if it was muted)
+	if [[ `is_mute` == "yes" ]] ; then
+		pactl set-sink-mute 0 false
+	fi
+	pactl set-sink-volume @DEFAULT_SINK@ -5%
 	send_notification
 	;;
     mute)
     	# Toggle mute
-	pactl set-source-mute @DEFAULT_SOURCE@ toggle 
-	if is_mute ; then
-	    dunstify -i audio-volume-muted -r 2593 -u normal "Mute"
-	else
-	    send_notification
-	fi
+	pactl set-sink-mute 0 toggle
 	;;
 esac

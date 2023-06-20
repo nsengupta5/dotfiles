@@ -93,10 +93,6 @@ init_config () {
     # Original DPMS status
     DEFAULT_DPMS=$(xset q | awk '/^[[:blank:]]*DPMS is/ {print $(NF)}')
 
-    # Dunst
-    DUNST_INSTALLED=false && [[ -e "$(command -v dunstctl)" ]] && DUNST_INSTALLED=true
-    DUNST_IS_PAUSED=false && [[ "$DUNST_INSTALLED" == "true" ]] && DUNST_IS_PAUSED=$(dunstctl is-paused)
-
     # Feh
     FEH_INSTALLED=false && [[ -e "$(command -v feh)" ]] && FEH_INSTALLED=true
 }
@@ -107,11 +103,6 @@ prelock() {
     # set dpms timeout
     if [ "$DEFAULT_DPMS" == "Enabled" ]; then
         xset dpms "$lock_timeout"
-    fi
-
-    # If dusnt is already paused don't pause it again
-    if [[ "$DUNST_INSTALLED" == "true" && "$DUNST_IS_PAUSED" == "false" ]]; then
-        dunstctl set-paused true
     fi
 
     if [[ "$runsuspend" = "true" ]]; then
@@ -264,11 +255,6 @@ postlock() {
     # restore default dpms timeout
     if [ "$DEFAULT_DPMS" == "Enabled" ]; then
         xset dpms "$DEFAULT_TIMEOUT"
-    fi
-
-    # If dunst already paused before locking don't unpause dunst
-    if [[ "$DUNST_INSTALLED" == "true" && "$DUNST_IS_PAUSED" == "false" ]]; then
-        dunstctl set-paused false
     fi
 }
 
@@ -928,13 +914,8 @@ for arg in "$@"; do
 
         -v | --version)
             echo
-            echo "Betterlockscreen: version: v$VERSION (dunst: $DUNST_INSTALLED, feh: $FEH_INSTALLED)"
             $i3lockcolor_bin --version
             convert --version
-
-            if [[ "$DUNST_INSTALLED" == "true" ]]; then
-                dunstctl debug
-            fi
 
             if [[ "$FEH_INSTALLED" == "true" ]]; then
                 feh --version

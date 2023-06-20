@@ -38,8 +38,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l --nof
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/volume.sh up
 bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/volume.sh down
-# bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id ~/.config/i3/volume.sh mute
+bindsym XF86AudioMute exec --no-startup-id ~/.config/i3/volume.sh mute
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -130,7 +129,6 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
-bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
 bindsym XF86MonBrightnessUp exec ~/.config/i3/brightness.sh up
 bindsym XF86MonBrightnessDown exec ~/.config/i3/brightness.sh down
 
@@ -230,8 +228,8 @@ gaps inner 8
 # Autostart applications
 exec xrdb -merge ~/.Xresources
 exec xrandr --output eDP-1 --mode 1920x1200
-exec --no-startup-id feh --bg-scale ~/.config/i3/themes/macos/hills.jpg
+exec --no-startup-id feh --bg-scale ~/.config/i3/themes/macos/bigsur.jpg
 exec --no-startup-id picom --config ~/.config/picom.conf --experimental-backends -b
 exec --no-startup-id libinput-gestures-setup start
 exec --no-startup-id ~/.config/polybar/launch.sh --panels
-exec --no-startup-id xidlehook --not-when-fullscreen --not-when-audio --timer 120 'light -S 10' 'light -S 80' --timer 10 'light -S 80; betterlockscreen -l' '' --timer 600 'systemctl suspend' ''
+exec --no-startup-id xidlehook --not-when-fullscreen --not-when-audio --timer 120 'light -S 10' 'light -S 60' --timer 10 'light -S 60; betterlockscreen -l' '' --timer 600 'systemctl suspend' ''
