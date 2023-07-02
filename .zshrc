@@ -22,6 +22,7 @@ export XDG_CACHE_HOME=$HOME/.cache
 export CLASSPATH=".:/usr/local/lib/antlr-4.7.2-complete.jar:$CLASSPATH"
 export CHROME_EXECUTABLE=/usr/bin/brave-browser
 export LIBBY_OUTPUT_DIR="$HOME/Documents/Books"
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export OPENAI_API_KEY="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"
 
 if [ -d "$HOME/bin" ] ; then
@@ -33,7 +34,6 @@ PATH="$PATH:/usr/local/go/bin"
 PATH="$PATH:$HOME/go/bin"
 PATH="$PATH:$HOME/.local/bin"
 PATH="$PATH:$HOME/.npm-global/bin"
-PATH="$PATH:$HOME/Downloads/Processing/processing-4.1.2/"
 # PATH="$PATH:$HOME/.emacs.d/bin"
 # PATH="$PATH:$HOME/Downloads/flutter/bin"
 # PATH="$PATH:$HOME/Android/cmdline-tools/tools/bin"
@@ -108,7 +108,9 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 # TO DO: virtualenv 
 #
-plugins=(git fasd zsh-autosuggestions zsh-vi-mode zsh-syntax-highlighting) 
+
+# now load zsh-syntax-highlighting plugin
+plugins=(git fasd zsh-autosuggestions zsh-syntax-highlighting) 
 
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
@@ -116,6 +118,11 @@ source $ZSH/oh-my-zsh.sh
 
 source ~/.bash_aliases
 source /usr/share/fzf/shell/key-bindings.zsh
+
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
 # User configuration
 
@@ -145,7 +152,7 @@ source /usr/share/fzf/shell/key-bindings.zsh
 
 # Add colors to Terminal
 export CLICOLOR=1
-export LS_COLORS=ExFxBxDxCxegedabagacad
+export EXA_COLORS="$(vivid generate catppuccin-mocha)"
 
 eval "$(fasd --init auto)"
 
@@ -182,11 +189,15 @@ zinit ice lucid wait"0a" from"gh-r" as"program" atload'eval "$(mcfly init zsh)"'
 zinit light cantino/mcfly 
 
 # Enables vi mode
-# bindkey -v
+bindkey -v
 
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 if [ -e /home/nsengupta5/.nix-profile/etc/profile.d/nix.sh ]; then . /home/nsengupta5/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-(\cat ~/.cache/wal/sequences &)
+source <(kubectl completion zsh)
+# (\cat ~/.cache/wal/sequences &)
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/terraform terraform

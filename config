@@ -127,10 +127,10 @@ bindsym $mod+Shift+minus move scratchpad
 
 # Function Keys Keybindings
 bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86MonBrightnessUp exec ~/.config/i3/brightness.sh up
 bindsym XF86MonBrightnessDown exec ~/.config/i3/brightness.sh down
+bindsym $mod+bracketright exec playerctl next
+bindsym $mod+bracketleft exec playerctl previous
 
 # Screenshots
 bindsym Ctrl+Print exec --no-startup-id maim "/home/$USER/Pictures/$(date).png"
@@ -228,8 +228,8 @@ gaps inner 8
 # Autostart applications
 exec xrdb -merge ~/.Xresources
 exec xrandr --output eDP-1 --mode 1920x1200
-exec --no-startup-id feh --bg-scale ~/.config/i3/themes/macos/bigsur.jpg
+exec --no-startup-id feh --bg-scale ~/.config/i3/themes/macos/island.jpg
 exec --no-startup-id picom --config ~/.config/picom.conf --experimental-backends -b
 exec --no-startup-id libinput-gestures-setup start
 exec --no-startup-id ~/.config/polybar/launch.sh --panels
-exec --no-startup-id xidlehook --not-when-fullscreen --not-when-audio --timer 120 'light -S 10' 'light -S 60' --timer 10 'light -S 60; betterlockscreen -l' '' --timer 600 'systemctl suspend' ''
+exec --no-startup-id xidlehook --not-when-fullscreen --not-when-audio --timer 120 'light -S 10' 'light -S 40' --timer 10 'light -S 40; betterlockscreen -l' '' --timer 600 'systemctl suspend' ''

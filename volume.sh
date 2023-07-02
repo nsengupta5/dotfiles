@@ -10,8 +10,7 @@ function get_volume {
 }
 
 function is_mute {
-	pactl list sinks | \grep 'Mute:' | awk '{print $2}'
-    # amixer get Master | grep '%' | \grep -oE '[^ ]+$' | grep off > /dev/null
+	pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}' 
 }
 
 function send_notification {

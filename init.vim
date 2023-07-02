@@ -19,7 +19,6 @@ set nobackup
 
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'joshdick/onedark.vim'
-Plug 'gkeep/iceberg-dark'
 Plug 'tpope/vim-surround'
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'vim-airline/vim-airline-themes'
@@ -42,6 +41,8 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'sheerun/vim-polyglot'
 Plug 'unblevable/quick-scope'
 Plug 'honza/vim-snippets'
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -59,15 +60,13 @@ Plug 'mfussenegger/nvim-dap'
 Plug 'dylanaraps/wal.vim'
 Plug 'github/copilot.vim'
 Plug 'MunifTanjim/nui.nvim'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
-
-" Gruvbox Settings
-let g:gruvbox_material_transparent_background = 1
 
 " Airline Settings
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='wal'
+let g:airline_theme='catppuccin'
 hi airline_tabfill ctermbg=NONE guibg=NONE
 hi airline_c  ctermbg=NONE guibg=NONE
 
@@ -80,7 +79,7 @@ hi airline_c  ctermbg=NONE guibg=NONE
 " colorscheme wal
 " colorscheme gruvbox-material
 
-colorscheme catppuccin-frappe
+colorscheme catppuccin-mocha
 
 if (has("nvim"))
   "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
@@ -193,6 +192,11 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 let g:vimtex_view_method = 'zathura'
 let g:vimtex_compiler_method = 'latexrun'
 
+" Go Settings
+let g:go_fmt_command = "goimports"
+let g:go_auto_type_info = 1
+let g:go_snippet_engine = "neosnippet"
+au FileType go nmap <F12> <Plug>(go-def)
 
 " Starify Settings
 let g:startify_custom_header = [
