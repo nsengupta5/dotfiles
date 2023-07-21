@@ -16,27 +16,21 @@ alias pip='pip3'
 alias sqlite='sqlite3'
 alias uptime='uptime --pretty'
 alias vpn='protonvpn-cli'
-alias yt='mpsyt'
-alias ytclear='rm ~/.config/mps-youtube/cache_py_*'
-alias ispt="spotifyd"
 alias open="xdg-open"
 alias termopen="~/Downloads/termpdf.py/termpdf.py"
 alias wordle='ssh clidle.ddns.net -p 3000'
 alias fd='fd --hidden --no-ignore'
 alias tuir='tuir --enable-media'
 alias prime-run='__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia'
-
-# Temporary Aliases
-alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.11.1-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
-alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.9-complete.jar.jar:$CLASSPATH" org.antlr.v4.gui.TestRig'
+alias ncdu='ncdu --color off'
 
 # Spotify Aliases
-alias dlsong='spt playback --dislike'
-alias tsong='spt playback --toggle'
-alias tshuffle='spt playback --shuffle'
-alias ssong='spt playback --status'
-alias pliked='spt play --name liked --playlist'
-alias lsong='spt playback --like'
+alias dlsong='\spt playback --dislike'
+alias tsong='\spt playback --toggle'
+alias tshuffle='\spt playback --shuffle'
+alias ssong='\spt playback --status'
+alias pliked='\spt play --name liked --playlist'
+alias lsong='\spt playback --like'
 
 # Git Aliases
 alias ga='git add'
@@ -52,6 +46,11 @@ alias gchk='git checkout'
 alias sshget='touch clipper.txt; cat < clipper > clipper.txt; clip clipper.txt; rm clipper.txt'
 alias sshstart='sudo service ssh start'
 alias sshstop='sudo service ssh stop'
+
+# Fasd Aliases
+alias j='fasd_cd -d'
+alias v='f -e nvim' # quick opening files with vim
+alias o='a -e xdg-open' # quick opening files with xdg-open
 
 # Misc Functions
 
@@ -389,13 +388,6 @@ gpt () {
 		echo $QUERY
 		chatgpt "$QUERY" > tmp.md; glow tmp.md; rm tmp.md
 	fi
-}
-
-# Executes Processing Java
-pjava () {
-	rm -rf /tmp/processing
-	mkdir /tmp/processing
-	/home/nsengupta5/Downloads/Processing/processing-4.1.2/processing-java --output=/tmp/processing/ --force --sketch=$1 --run
 }
 
 # PDF Functions
