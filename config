@@ -53,8 +53,8 @@ bindsym $mod+Return exec kitty
 bindsym $mod+Shift+c kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id "rofi -combi-modi 'drun,window' -show combi -theme /usr/share/rofi/themes/spotlight.rasi"
-bindsym $mod+Shift+w exec --no-startup-id "rofi -show window -theme /usr/share/rofi/themes/spotlight.rasi"
+bindsym $mod+d exec --no-startup-id "rofi -i -show drun"
+bindsym $mod+Shift+w exec --no-startup-id "rofi -i -show window"
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -113,6 +113,7 @@ bindsym $mod+Ctrl+h exec kitty -e htop
 bindsym $mod+Ctrl+n exec kitty -e nvim
 bindsym $mod+Ctrl+r exec kitty -e ranger
 bindsym $mod+Ctrl+b exec kitty -e btop
+bindsym $mod+Ctrl+y exec kitty -e ytop
 bindsym $mod+Ctrl+f exec rofi-noter
 bindsym $mod+b exec /opt/brave.com/brave/brave
 bindsym $mod+m exec /usr/bin/librewolf
@@ -120,7 +121,7 @@ bindsym $mod+p exec /var/lib/flatpak/app/com.spotify.Client/x86_64/stable/active
 bindsym $mod+Ctrl+l exec betterlockscreen -l
 bindsym $mod+q exec ~/.config/polybar/panels/scripts/powermenu.sh 
 bindsym $mod+n exec networkmanager_dmenu
-bindsym Mod1+Tab exec rofi -show window -theme spotlight.rasi
+bindsym Mod1+Tab exec rofi -i -show window
 
 # Scratchpad
 bindsym $mod+minus scratchpad show
