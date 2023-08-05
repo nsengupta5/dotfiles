@@ -42,23 +42,23 @@ export FZF_DEFAULT_OPTS=" \
 export CLICOLOR=1
 export EXA_COLORS="$(vivid generate catppuccin-mocha)"
 
-# Basic auto-completion
+# # Basic auto-completion
 autoload -U compinit; 
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
 
-source "$HOME/.config/zsh/zsh_functions"
+source "$ZDOTDIR/zsh_functions"
 source /usr/share/fzf/shell/key-bindings.zsh
 source ~/.bash_aliases
 
 zsh_add_file "zsh_vim_mode"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
-# zsh_add_plugin "jeffreytse/zsh-vi-mode"
+# # zsh_add_plugin "jeffreytse/zsh-vi-mode"
 
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-bindkey '^E' autosuggest-accept
+# ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+# bindkey '^E' autosuggest-accept
 
 eval "$(fasd --init auto)"
 eval "$(starship init zsh)"
