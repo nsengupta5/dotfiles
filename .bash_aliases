@@ -391,8 +391,14 @@ gpt () {
 	fi
 }
 
+# Creates a new directory and enters it
+take () {
+	mkdir "$1" && cd "$1"
+}
+
 # PDF Functions
 concat() {
 	DIR="$1"
 	pdftk "$DIR"/* cat output fullLectures.pdf
 }
+

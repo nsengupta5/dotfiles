@@ -45,6 +45,7 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'karb94/neoscroll.nvim'
@@ -55,10 +56,12 @@ Plug 'lervag/vimtex'
 Plug 'tpope/vim-obsession'
 Plug 'mfussenegger/nvim-dap'
 Plug 'rcarriga/nvim-dap-ui'
-Plug 'dylanaraps/wal.vim'
 Plug 'github/copilot.vim'
 Plug 'MunifTanjim/nui.nvim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'preservim/tagbar'
+Plug 'inkarkat/vim-ReplaceWithSameIndentRegister'
+Plug 'junegunn/goyo.vim'
 call plug#end()
 
 " Airline Settings
@@ -128,6 +131,10 @@ let g:syntastic_cs_checkers = ['code_checker']
 " Remove background color
 hi Normal guibg=NONE ctermbg=NONE
 
+" Jump screen lines instead of actual lines
+nnoremap <Up> gk
+nnoremap <Down> gj
+
 " FixCursorHold Settings
 let g:cursorhold_updatetime = 100
 
@@ -183,18 +190,24 @@ lua require('neoscroll').setup()
 nnoremap <leader>fr <cmd>Telescope oldfiles<CR>
 nnoremap <C-f> <cmd>Telescope find_files<cr>
 nnoremap <C-g> <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <C-b> <cmd>Telescope buffers<cr>
+nnoremap <C-h> <cmd>Telescope help_tags<cr>
 
 " VimTex Settings
 let g:vimtex_view_method = 'zathura'
-let g:vimtex_compiler_method = 'latexrun'
+let g:vimtex_compiler_method = 'arara'
 
 " Go Settings
 let g:go_fmt_command = "goimports"
 let g:go_auto_type_info = 1
 let g:go_snippet_engine = "neosnippet"
 au FileType go nmap <F12> <Plug>(go-def)
+
+" Tagbar Settings
+nmap <C-m> :TagbarToggle<CR>
+
+" PyNvim Settings
+let g:python3_host_prog = "python3"
 
 " Starify Settings
 let g:startify_custom_header = [

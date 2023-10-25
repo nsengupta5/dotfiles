@@ -11,6 +11,9 @@
 
 set $mod Mod4
 
+set $mon1 eDP-1
+set $mon2 DP-4
+
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:monospace 8
@@ -122,6 +125,7 @@ bindsym $mod+Ctrl+l exec betterlockscreen -l
 bindsym $mod+q exec ~/.config/polybar/panels/scripts/powermenu.sh 
 bindsym $mod+n exec networkmanager_dmenu
 bindsym Mod1+Tab exec rofi -i -show window
+bindsym $mod+Shift+f exec flameshot gui
 
 # Scratchpad
 bindsym $mod+minus scratchpad show
@@ -159,6 +163,15 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
+
+workspace 1 output $mon1
+workspace 2 output $mon1
+workspace 3 output $mon1
+workspace 4 output $mon1
+workspace 5 output $mon2
+workspace 6 output $mon2
+workspace 7 output $mon2
+workspace 8 output $mon2
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -230,9 +243,11 @@ gaps inner 8
 # Autostart applications
 exec xrdb -merge ~/.Xresources
 exec xrandr --output eDP-1 --mode 1920x1200
-exec --no-startup-id feh --bg-scale ~/.config/i3/themes/macos/mocha_calm_evening.jpg
+exec --no-startup-id feh --bg-scale ~/.config/i3/themes/macos/abstract_paint.jpg
 exec --no-startup-id picom --config ~/.config/picom.conf --experimental-backends -b
 exec --no-startup-id libinput-gestures-setup start
-exec --no-startup-id ~/.config/polybar/launch.sh --panels
-exec --no-startup-id xidlehook --not-when-fullscreen --not-when-audio --timer 120 'light -S 10' 'light -S 40' --timer 10 'light -S 40; betterlockscreen -l' '' --timer 600 'systemctl suspend' ''
+exec --no-startup-id xinput set-prop 11 346 1
+exec --no-startup-id xinput set-prop 11 373 1
+exec --no-startup-id xidlehook --not-when-fullscreen --not-when-audio --timer 120 'light -S 10' 'light -S 80' --timer 10 'light -S 80; betterlockscreen -l' '' --timer 600 'systemctl suspend' ''
 exec --no-startup-id unclutter --timeout 5
+exec --no-startup-id sleep 2 && ~/.config/polybar/panels/launch.sh

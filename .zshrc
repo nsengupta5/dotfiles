@@ -7,7 +7,6 @@ setopt interactive_comments
 zle_highlight=(paste:none)
 
 export HISTCONTROL=ignoreboth
-export TERM="xterm-256color"
 export EDITOR='nvim'
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export LD_LIBRARY_PATH=/usr/local/clang_9.0.0/lib:$LD_LIBRARY_PATH
@@ -18,6 +17,12 @@ export XDG_CACHE_HOME=$HOME/.cache
 export CHROME_EXECUTABLE=/usr/bin/brave-browser
 export LIBBY_OUTPUT_DIR="$HOME/Documents/Books"
 export ZDOTDIR=$XDG_CONFIG_HOME/zsh
+export LESS_TERMCAP_md=$'\e[1;32m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 if [ -d "$HOME/bin" ] ; then
   PATH="$PATH:$HOME/bin"
@@ -55,11 +60,24 @@ source ~/.bash_aliases
 zsh_add_file "zsh_vim_mode"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
-# # zsh_add_plugin "jeffreytse/zsh-vi-mode"
 
-# ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-# bindkey '^E' autosuggest-accept
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 eval "$(fasd --init auto)"
 eval "$(starship init zsh)"
 eval "$(mcfly init zsh)"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/nsengupta5/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/nsengupta5/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/nsengupta5/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/nsengupta5/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<

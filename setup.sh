@@ -29,3 +29,4 @@ ln -s ~/dotfiles/polybar ~/.config
 ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
 ln -s ~/dotfiles/picom.conf ~/.config/picom.conf
 ln -s ~/dotfiles/robbyrussell.zsh-theme ~/.oh-my-zsh/themes/robbyrussell.zsh-theme
+ln -s ~/dotfiles/dock ~/bin/dock

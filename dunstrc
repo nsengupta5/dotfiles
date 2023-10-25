@@ -17,7 +17,7 @@
     #
     # If this option is set to mouse or keyboard, the monitor option
     # will be ignored.
-    follow = none
+    follow = keyboard
 
     ### Geometry ###
 
@@ -321,8 +321,8 @@ foreground = "#CDD6F4"
 timeout = 10
 
 [urgency_critical]
-background = "#1E1E2E"
-foreground = "#CDD6F4"
+background = "#d20f39"
+foreground = "#FFFFFF"
 frame_color = "#FAB387"
 timeout = 10
 
