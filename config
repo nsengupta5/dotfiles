@@ -12,7 +12,7 @@
 set $mod Mod4
 
 set $mon1 eDP-1
-set $mon2 DP-4
+set $mon2 DP-2
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -119,13 +119,15 @@ bindsym $mod+Ctrl+b exec kitty -e btop
 bindsym $mod+Ctrl+y exec kitty -e ytop
 bindsym $mod+Ctrl+f exec rofi-noter
 bindsym $mod+b exec /opt/brave.com/brave/brave
+bindsym $mod+Shift+y exec /opt/brave.com/brave/brave --profile-directory=Default --app-id=agimnkijcaahngcdmfeangaknmldooml
 bindsym $mod+m exec /usr/bin/librewolf
-bindsym $mod+p exec /var/lib/flatpak/app/com.spotify.Client/x86_64/stable/active/export/bin/com.spotify.Client
+bindsym $mod+p exec spotify
 bindsym $mod+Ctrl+l exec betterlockscreen -l
 bindsym $mod+q exec ~/.config/polybar/panels/scripts/powermenu.sh 
 bindsym $mod+n exec networkmanager_dmenu
 bindsym Mod1+Tab exec rofi -i -show window
 bindsym $mod+Shift+f exec flameshot gui
+bindsym $mod+Shift+d exec ~/bin/dock
 
 # Scratchpad
 bindsym $mod+minus scratchpad show
@@ -243,7 +245,7 @@ gaps inner 8
 # Autostart applications
 exec xrdb -merge ~/.Xresources
 exec xrandr --output eDP-1 --mode 1920x1200
-exec --no-startup-id feh --bg-scale ~/.config/i3/themes/macos/abstract_paint.jpg
+exec --no-startup-id feh --bg-scale ~/.config/i3/themes/macos/calming-blue-red.png
 exec --no-startup-id picom --config ~/.config/picom.conf --experimental-backends -b
 exec --no-startup-id libinput-gestures-setup start
 exec --no-startup-id xinput set-prop 11 346 1

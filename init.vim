@@ -43,7 +43,7 @@ Plug 'honza/vim-snippets'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'nvim-telescope/telescope-file-browser.nvim'
@@ -95,10 +95,8 @@ endif
 highlight LineNr ctermfg=None ctermbg=None
 
 " Buffer and Tab Navigation Keybindings
-noremap <S-l> gt
-noremap <S-h> gT
-nnoremap <PageUp>   :bprevious<CR>
-nnoremap <PageDown> :bnext<CR>
+noremap <S-l> :bnext<CR>
+noremap <S-h> :bprevious<CR>
 nnoremap gb :buffers<CR>:buffer<Space>
 
 " Coc Settings

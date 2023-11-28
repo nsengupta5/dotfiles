@@ -10,7 +10,7 @@ alias homepass='sudo cat /etc/NetworkManager/system-connections/Sengupta_5GHz | 
 alias icat='kitty +kitten icat'
 alias la='ls -lah'
 alias lclips='cat ~/clipper_history'
-alias ls='exa -al --color=always --group-directories-first'
+alias ls='eza -al --color=always --group-directories-first'
 alias md='mkdir -p'
 alias pip='pip3'
 alias sqlite='sqlite3'
