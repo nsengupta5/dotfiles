@@ -319,7 +319,7 @@ foreground = "#000000"
 timeout = 10
 
 [urgency_normal]
-background = "#ececece6"
+background = "#ecececcc"
 foreground = "#333333ff"
 timeout = 10
 

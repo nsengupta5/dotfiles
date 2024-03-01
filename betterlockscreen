@@ -156,7 +156,6 @@ lock() {
         --layout-color="$layoutcolor" \
         --layout-font="$font" \
         --layout-size="$fontsm" \
-        --keylayout "${keylayout:-0}" \
         --verif-pos="ix+35:iy-34" \
         --verif-align 2 \
         --verif-text="" \
@@ -224,7 +223,6 @@ failsafe() {
         --layout-color="$layoutcolor" \
         --layout-font="$font" \
         --layout-size="$fontsm" \
-        --keylayout "${keylayout:-0}" \
         --verif-pos="ix+45:iy-35" \
         --verif-align 2 \
         --verif-text="Verifying..." \

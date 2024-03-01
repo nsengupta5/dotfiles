@@ -28,10 +28,14 @@ if [ -d "$HOME/bin" ] ; then
   PATH="$PATH:$HOME/bin"
 fi
 
+# Spark setup
+export SPARK_HOME=~/Downloads/spark-3.5.0-bin-hadoop3
+
 PATH="$PATH:/usr/local/go/bin"
 PATH="$PATH:$HOME/.local/bin"
 PATH="$PATH:$HOME/.npm-global/bin"
 PATH="$PATH:$HOME/go/bin"
+PATH="$PATH:$SPARK_HOME/bin"
 # PATH="$PATH:$HOME/.cargo/bin"
 # PATH="$PATH:$HOME/.emacs.d/bin"
 # PATH="$PATH:$HOME/Downloads/flutter/bin"

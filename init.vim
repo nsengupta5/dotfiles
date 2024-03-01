@@ -43,7 +43,7 @@ Plug 'honza/vim-snippets'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' }
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'nvim-telescope/telescope-file-browser.nvim'
@@ -56,12 +56,13 @@ Plug 'lervag/vimtex'
 Plug 'tpope/vim-obsession'
 Plug 'mfussenegger/nvim-dap'
 Plug 'rcarriga/nvim-dap-ui'
-Plug 'github/copilot.vim'
+Plug 'github/copilot.vim' 
 Plug 'MunifTanjim/nui.nvim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'preservim/tagbar'
 Plug 'inkarkat/vim-ReplaceWithSameIndentRegister'
 Plug 'junegunn/goyo.vim'
+Plug 'neovim/nvim-lspconfig'
 call plug#end()
 
 " Airline Settings
@@ -193,7 +194,7 @@ nnoremap <C-h> <cmd>Telescope help_tags<cr>
 
 " VimTex Settings
 let g:vimtex_view_method = 'zathura'
-let g:vimtex_compiler_method = 'arara'
+let g:vimtex_compiler_method = 'latexmk'
 
 " Go Settings
 let g:go_fmt_command = "goimports"

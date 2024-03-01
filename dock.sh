@@ -1,25 +1,34 @@
-# /bin/bash
+#!/bin/bash
 
-size=$(xrandr -q | \grep -A 1 "DP-2 connected" | tail -n +2 | cut -d " " -f 4)
+size=$(xrandr -q | grep -A 1 "DP-2 connected" | tail -n +2 | cut -d " " -f 4)
 width=$(echo $size | cut -d "x" -f 1)
 height=$(echo $size | cut -d "x" -f 2)
+wallpaper=~/.config/i3/themes/macos/orange-mountains.jpg
+
+orientation=$1
+
+docked_commands() {
+	feh --bg-scale $wallpaper
+	~/.config/polybar/panels/launch.sh
+	betterlockscreen -u $wallpaper
+}
 
 # If first argument is "dock" then set up for docked mode
-if xrandr --listactivemonitors | \grep "DP-2";
+if xrandr --listactivemonitors | grep "DP-2";
 then
 	xrandr --output DP-2 --off
-
-	feh --bg-scale ~/.config/i3/themes/macos/calming-blue-red.png
-
-	 ~/.config/polybar/panels/launch.sh
-
-	betterlockscreen -u ~/.config/i3/themes/macos/calming-blue-red.png
+	docked_commands
 else 
-	xrandr --output eDP-1 --mode 1920x1200 --rate 60 --pos 0x960 --output DP-2 --mode ${width}x${height} --rate 60 --pos 1920x0
-
-	feh --bg-scale ~/.config/i3/themes/macos/calming-blue-red.png
-
-	~/.config/polybar/panels/launch.sh
-
-	betterlockscreen -u ~/.config/i3/themes/macos/calming-blue-red.png
+	if [[ $orientation == "left" ]]
+	then
+		xrandr --output eDP-1 --mode 1920x1200 --rate 60 --pos 0x0 --output DP-2 --mode ${width}x${height} --rate 60 --pos 1920x0
+	elif [[ $orientation == "right" ]]
+	then
+		xrandr --output eDP-1 --mode 1920x1200 --rate 60 --pos 0x960 --output DP-2 --mode ${width}x${height} --rate 60 --pos 1920x0
+	elif [[ $orientation == "up" ]]
+	then
+		horizontal_offset=$(( (width - 1920) / 2 ))
+		xrandr --output eDP-1 --mode 1920x1200 --rate 60 --pos ${horizontal_offset}x${height} --output DP-2 --mode ${width}x${height} --rate 60 --pos 0x0
+	fi
+	docked_commands
 fi
