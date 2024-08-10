@@ -28,19 +28,13 @@ if [ -d "$HOME/bin" ] ; then
   PATH="$PATH:$HOME/bin"
 fi
 
-# Spark setup
-export SPARK_HOME=~/Downloads/spark-3.5.0-bin-hadoop3
-
 PATH="$PATH:/usr/local/go/bin"
 PATH="$PATH:$HOME/.local/bin"
 PATH="$PATH:$HOME/.npm-global/bin"
 PATH="$PATH:$HOME/go/bin"
-PATH="$PATH:$SPARK_HOME/bin"
 # PATH="$PATH:$HOME/.cargo/bin"
 # PATH="$PATH:$HOME/.emacs.d/bin"
-# PATH="$PATH:$HOME/Downloads/flutter/bin"
-# PATH="$PATH:$HOME/Android/cmdline-tools/tools/bin"
-# PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+PATH="$PATH:$HOME/Downloads/flutter/bin"
 # PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 export PATH
@@ -85,4 +79,3 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-

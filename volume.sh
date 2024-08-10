@@ -19,7 +19,7 @@ function send_notification {
     # https://en.wikipedia.org/wiki/Box-drawing_character
     bar=$(seq -s "─" $(($volume / 3)) | sed 's/[0-9]//g')
     # Send the notification
-    dunstify -i /usr/share/icons/mono-dark-flattr-icons/status/scalable/audio-volume-high-panel.svg -r 2593 -u normal "$bar"
+    # dunstify -i /usr/share/icons/mono-dark-flattr-icons/status/scalable/audio-volume-high-panel.svg -r 2593 -u normal "$bar"
 }
 
 case $1 in
@@ -29,16 +29,28 @@ case $1 in
 		pactl set-sink-mute 0 false
 	fi
 	# Up the volume (+ 5%)
-	pactl set-sink-volume @DEFAULT_SINK@ +5%
-	send_notification
+    volume=`get_volume`
+	if [[ $((volume + 5)) -gt 100 ]] ; then
+		pactl set-sink-volume @DEFAULT_SINK@ 100%
+	else
+		pactl set-sink-volume @DEFAULT_SINK@ +5%
+		send_notification
+	fi
 	;;
     down)
 	# Set the volume on (if it was muted)
 	if [[ `is_mute` == "yes" ]] ; then
 		pactl set-sink-mute 0 false
 	fi
-	pactl set-sink-volume @DEFAULT_SINK@ -5%
-	send_notification
+    volume=`get_volume`
+	if [[ $((volume - 5)) -le 0 ]] ; then
+		pactl set-sink-volume @DEFAULT_SINK@ 0 
+		pactl set-sink-mute 0 toggle
+	else
+		# Down the volume (- 5%)
+		pactl set-sink-volume @DEFAULT_SINK@ -5%
+		send_notification
+	fi
 	;;
     mute)
     	# Toggle mute

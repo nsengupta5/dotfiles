@@ -6,7 +6,7 @@ function send_notification {
     # https://en.wikipedia.org/wiki/Box-drawing_character
     bar=$(seq -s "─" $(($brightness / 3)) | sed 's/[0-9]//g')
     # Send the notification
-    dunstify -i /usr/share/icons/ePapirus-Dark/16x16/actions/brightnesssettings.svg -r 2594 -u normal "$bar"
+    # dunstify -i /usr/share/icons/ePapirus-Dark/16x16/actions/brightnesssettings.svg -r 2594 -u normal "$bar"
 }
 
 case $1 in

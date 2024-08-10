@@ -8,11 +8,7 @@ sudo snap refresh
 
 sudo flatpak update
 
-nvim --headless +PlugUpdate +qa
-
-echo
-
-nvim --headless +PlugUpgrade +qa
+nvim --headless +PackerSync +qa
 
 echo
 

@@ -3,7 +3,7 @@
 size=$(xrandr -q | grep -A 1 "DP-2 connected" | tail -n +2 | cut -d " " -f 4)
 width=$(echo $size | cut -d "x" -f 1)
 height=$(echo $size | cut -d "x" -f 2)
-wallpaper=~/.config/i3/themes/macos/orange-mountains.jpg
+wallpaper=~/.config/i3/themes/macos/orange_swirl.jpg
 
 orientation=$1
 
@@ -11,6 +11,7 @@ docked_commands() {
 	feh --bg-scale $wallpaper
 	~/.config/polybar/panels/launch.sh
 	betterlockscreen -u $wallpaper
+	picom --config ~/.config/picom.conf --experimental-backends -b
 }
 
 # If first argument is "dock" then set up for docked mode
