@@ -8,7 +8,7 @@ sudo snap refresh
 
 sudo flatpak update
 
-nvim --headless +PackerSync +qa
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 echo
 
