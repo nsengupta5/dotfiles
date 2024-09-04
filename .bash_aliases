@@ -3,7 +3,6 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias batt='upower -i /org/freedesktop/UPower/devices/battery_BAT1 | awk -F ":" '\''/percentage|state|time/ {print  }'\'
 alias cat='bat --theme=base16'
-alias cclips=': > ~/clipper_history'
 alias grep='rg --line-number --color=auto'
 alias hg='kitty +kitten hyperlinked_grep'
 alias homepass='sudo cat /etc/NetworkManager/system-connections/Sengupta_5GHz | grep psk='
@@ -17,20 +16,11 @@ alias sqlite='sqlite3'
 alias uptime='uptime --pretty'
 alias vpn='protonvpn-cli'
 alias open="xdg-open"
-alias termopen="~/Downloads/termpdf.py/termpdf.py"
 alias wordle='ssh clidle.ddns.net -p 3000'
 alias fd='fd --hidden --no-ignore'
 alias tuir='tuir --enable-media'
 alias prime-run='__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia'
 alias ncdu='ncdu --color off'
-
-# Spotify Aliases
-alias dlsong='\spt playback --dislike'
-alias tsong='\spt playback --toggle'
-alias tshuffle='\spt playback --shuffle'
-alias ssong='\spt playback --status'
-alias pliked='\spt play --name liked --playlist'
-alias lsong='\spt playback --like'
 
 # Git Aliases
 alias ga='git add'
@@ -42,11 +32,6 @@ alias gp='git push'
 alias gr='git reset -HEAD'
 alias gl='git log'
 alias gchk='git checkout'
-
-# SSH Aliases
-alias sshget='touch clipper.txt; cat < clipper > clipper.txt; clip clipper.txt; rm clipper.txt'
-alias sshstart='sudo service ssh start'
-alias sshstop='sudo service ssh stop'
 
 # Fasd Aliases
 alias j='fasd_cd -d'
@@ -183,168 +168,6 @@ clip () {
 	fi
 }
 
-# Spotify Functions
-
-# Plays a song
-psong () {
-	if command -v spt >/dev/null 2>&1 ;
-	then
-		TITLE="$(chain " " "$@")"
-		spt play --name "$TITLE" --track
-	else
-		echo "Spotify Tui not installed"
-	fi
-}
-
-# Plays a playlist
-plist () {
-	if command -v spt >/dev/null 2>&1 ;
-	then
-		TITLE="$(chain " " "$@")"
-		spt play --name "$TITLE" --playlist
-	else
-		echo "Spotify Tui not installed"
-	fi
-}
-
-fseek () {
-	if command -v spt >/dev/null 2>&1 ;
-	then
-		SECONDS="$1"
-		spt pb --seek +"$SECONDS"
-	else
-		echo "Spotify Tui not installed"
-	fi
-}
-
-bseek () {
-	if command -v spt >/dev/null 2>&1 ;
-	then
-		SECONDS="$1"
-		spt pb --seek -"$SECONDS"
-	else
-		echo "Spotify Tui not installed"
-	fi
-}
-
-# Plays the next nth song in the playlist
-pnext () {
-	if command -v spt >/dev/null 2>&1 ;
-	then
-		if [ $# -eq 0 ]
-		then
-			spt playback --next
-		else
-			REQ="" 
-			NUM="$1" 
-			for i in {1..$NUM}
-			do
-				REQ+="n" 
-			done
-			spt pb -"$REQ"
-		fi
-	else
-		echo "Spotify Tui not installed"
-	fi
-}
-
-# Plays the previous nth song in the playlist
-pprev () {
-	if command -v spt >/dev/null 2>&1 ;
-	then
-		if [ $# -eq 0 ]
-		then
-			spt playback --previous
-		else
-			REQ="" 
-			NUM="$1" 
-			for i in {1..$NUM}
-			do
-				REQ+="p" 
-			done
-			spt pb -"$REQ"
-		fi
-	else
-		echo "Spotify Tui not installed"
-	fi
-}
-
-# Lists playlists 
-llists () {
-	if command -v spt >/dev/null 2>&1 ;
-	then
-		LIMIT=$1 
-		if [ $# -eq 0 ]
-		then
-			spt list --playlists --limit 20 | awk -F "(" '{print $1}'
-		elif [ "$LIMIT" -lt 50 ] || [ "$LIMIT" -gt 1 ]
-		then
-			spt list --playlists --limit "$LIMIT" | awk -F "(" '{print $1}'
-		else
-			echo "ERROR: Limit should be between 0 and 50"
-		fi
-	else
-		echo "Spotify Tui not installed"
-	fi
-}
-
-# List liked songs
-lliked () {
-	if command -v spt >/dev/null 2>&1 ;
-	then
-		LIMIT=$1 
-		if [ $# -eq 0 ]
-		then
-			spt list --limit 20 --liked 
-		elif [ "$LIMIT" -lt 50 ] || [ "$LIMIT" -gt 1 ]
-		then
-			spt list --limit "$LIMIT" --liked
-		else
-			echo "ERROR: Limit should be between 0 and 50"
-		fi
-	else
-		echo "Spotify Tui not installed"
-	fi
-}
-
-# Finds songs
-fsong () {
-	if command -v spt >/dev/null 2>&1 ;
-	then
-		TITLE="$(chain " " "$@")"
-		spt search "$TITLE" --tracks
-	else
-		echo "Spotify Tui not installed"
-	fi
-}
-
-# Adds a song to the queue
-qsong () {
-	if command -v spt >/dev/null 2>&1 ;
-	then
-		TITLE="$(chain " " "$@")"
-		spt play --name "$TITLE" --track --queue
-	else
-		echo "Spotify Tui not installed"
-	fi
-}
-
-# Git Functions
-
-# Pushes all files to the master branch
-gpa () {
-	MESSAGE="$1" 
-	git add -A
-	git commit -m "$MESSAGE"
-	git push origin master
-}
-
-# SSH Functions
-sshsend () {
-	CONTENTS="$1" 
-	echo "$CONTENTS" > clipper
-}
-
 # w3m Functions
 
 # Executes a DuckDuckGo search
@@ -363,42 +186,7 @@ ddgo () {
 	fi
 }
 
-# Executes a Google search
-google () {
-	if command -v w3m >/dev/null 2>&1 ;
-	then
-		if [ $# -eq 0 ]
-		then
-			w3m www.google.com
-		else
-			QUERY="$(chain "+" "$@")" 
-			w3m "https://www.google.com/search?q=$QUERY"
-		fi
-	else 
-		echo "w3m not installed"
-	fi
-}
-
-# Executes a ChatGPT search
-gpt () {
-	if [ $# -eq 0 ]
-	then
-		chatgpt
-	else
-		QUERY="$(chain " " "$@")" 
-		echo $QUERY
-		chatgpt "$QUERY" > tmp.md; glow tmp.md; rm tmp.md
-	fi
-}
-
 # Creates a new directory and enters it
 take () {
 	mkdir "$1" && cd "$1"
 }
-
-# PDF Functions
-concat() {
-	DIR="$1"
-	pdftk "$DIR"/* cat output fullLectures.pdf
-}
-

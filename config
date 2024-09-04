@@ -114,7 +114,7 @@ bindsym $mod+a focus parent
 
 # Custom Keybindings
 bindsym $mod+Ctrl+h exec kitty -e htop
-bindsym $mod+Ctrl+n exec kitty -e nvim
+bindsym $mod+Ctrl+n exec kitty -e ~/dotfiles/nvim_launcher.sh
 bindsym $mod+Ctrl+r exec kitty -e ranger
 bindsym $mod+Ctrl+b exec kitty -e btop
 bindsym $mod+Ctrl+y exec kitty -e ytop
@@ -250,7 +250,7 @@ gaps inner 8
 # Autostart applications
 exec xrdb -merge ~/.Xresources
 exec xrandr --output eDP-1 --mode 1920x1200
-exec --no-startup-id feh --bg-scale ~/.config/i3/themes/macos/orange_swirl.jpg
+exec --no-startup-id feh --bg-scale ~/.config/i3/themes/macos/orange_rocky.jpg
 exec --no-startup-id picom --config ~/.config/picom.conf --experimental-backends -b
 exec --no-startup-id libinput-gestures-setup start
 exec --no-startup-id xinput set-prop 11 346 1

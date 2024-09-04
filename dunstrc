@@ -314,7 +314,7 @@
 
 
 [urgency_low]
-background = "#CDD6F4"
+background = "#FFFFFFCC"
 foreground = "#000000"
 timeout = 10
 
