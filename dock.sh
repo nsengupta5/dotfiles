@@ -3,7 +3,7 @@
 size=$(xrandr -q | grep -A 1 "DP-2 connected" | tail -n +2 | cut -d " " -f 4)
 width=$(echo $size | cut -d "x" -f 1)
 height=$(echo $size | cut -d "x" -f 2)
-wallpaper=~/.config/i3/themes/macos/orange_rocky.jpg
+wallpaper=~/.config/i3/themes/macos/winter_mountains.jpg
 
 orientation=$1
 

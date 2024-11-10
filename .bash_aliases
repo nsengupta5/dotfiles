@@ -38,6 +38,11 @@ alias j='fasd_cd -d'
 alias v='f -e nvim' # quick opening files with vim
 alias o='a -e xdg-open' # quick opening files with xdg-open
 
+# Kubernetes Aliases
+alias k='kubectl'
+alias kubectx='kubectl ctx'
+alias kubens='kubectl ns'
+
 # Misc Functions
 
 # Connects arguements with a custom chain string
