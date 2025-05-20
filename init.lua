@@ -105,18 +105,42 @@ require("packer").startup(function(use)
 	-- Treesitter for syntax highlighting
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 
-	-- Additional plugins
-	use("tpope/vim-obsession")
-	use("github/copilot.vim")
-
-	-- Language specific plugins
+	-- AI support
+	use({ "zbirenbaum/copilot.lua" })
 	use({
-		"akinsho/flutter-tools.nvim",
+		"yetone/avante.nvim",
+		branch = "main",
+		run = "make",
+		config = function()
+			require("avante").setup({
+				provider = "ollama",
+				ollama = {
+					api_key_name = "",
+					endpoint = "http://127.0.0.1:11434", -- Note that there is no /v1 at the end.
+					model = "deepseek-coder:6.7b",
+				},
+			})
+		end,
+	})
+	use({
+		"ravitemer/mcphub.nvim",
 		requires = {
 			"nvim-lua/plenary.nvim",
-			"stevearc/dressing.nvim", -- optional for vim.ui.select
 		},
+		cmd = { "MCPHub" }, -- Lazy load on command
+		run = "npm install -g mcp-hub@latest",
+		config = function()
+			require("mcphub").setup()
+		end,
 	})
+
+	-- Additional plugins
+	use("tpope/vim-obsession")
+	use("stevearc/dressing.nvim")
+	use("MunifTanjim/nui.nvim")
+	use("MeanderingProgrammer/render-markdown.nvim")
+
+	-- Language-specific plugins
 	use("crispgm/nvim-go")
 	use("lervag/vimtex")
 end)
@@ -235,32 +259,16 @@ require("cmp").setup({
 	mapping = require("cmp").mapping.preset.insert({}),
 })
 
--- Flutter tools settings
-require("flutter-tools").setup({}) -- use defaults
+-- -- Flutter tools settings
+-- require("flutter-tools").setup({}) -- use defaults
 
 -- Treesitter settings
 require("nvim-treesitter.configs").setup({
-	-- A list of parser names, or "all" (the listed parsers MUST always be installed)
 	ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "go", "python" },
-
-	-- Install parsers synchronously (only applied to `ensure_installed`)
 	sync_install = false,
-
-	-- Automatically install missing parsers when entering buffer
-	-- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
 	auto_install = true,
-
-	---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-	-- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
-
 	highlight = {
 		enable = true,
-
-		-- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-		-- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-		-- the name of the parser)
-		-- list of language that will be disabled
-		-- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
 		disable = function(lang, buf)
 			local max_filesize = 100 * 1024 -- 100 KB
 			local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
@@ -268,11 +276,6 @@ require("nvim-treesitter.configs").setup({
 				return true
 			end
 		end,
-
-		-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-		-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-		-- Using this option may slow down your editor, and you may see some duplicate highlights.
-		-- Instead of true it can also be a list of languages
 		additional_vim_regex_highlighting = false,
 	},
 })
@@ -282,6 +285,24 @@ require("gitsigns").setup()
 
 -- Git blame settings
 vim.keymap.set("n", "<A-b>", ":BlameToggle<CR>")
+
+require("copilot").setup({
+	suggestion = {
+		enabled = true,
+		auto_trigger = true,
+		hide_during_completion = true,
+		debounce = 75,
+		trigger_on_accept = true,
+		keymap = {
+			accept = "<Tab>",
+			accept_word = false,
+			accept_line = false,
+			next = "<M-]>",
+			prev = "<M-[>",
+			dismiss = "<C-]>",
+		},
+	},
+})
 
 -- Formatting settings
 -- Telescope key mappings

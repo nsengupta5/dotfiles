@@ -22,6 +22,7 @@ export LESS_TERMCAP_se=$'\e[0m'
 export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
+export DOTNET_ROOT=$HOME/.dotnet
 
 export LIBRARY_PATH=/usr/local/cuda-12.2/lib64:$LIBRARY_PATH
 LD_LIBRARY_PATH=/usr/local/clang_9.0.0/lib:$LD_LIBRARY_PATH
@@ -35,11 +36,14 @@ PATH="$PATH:/usr/local/go/bin"
 PATH="$PATH:$HOME/.local/bin"
 PATH="$PATH:$HOME/.npm-global/bin"
 PATH="$PATH:$HOME/go/bin"
-PATH="$PATH:/usr/local/cuda-12.2/bin"
+PATH="$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools"
+# PATH="$PATH:/usr/local/cuda-12.2/bin"
 # PATH="$PATH:$HOME/.cargo/bin"
 # PATH="$PATH:$HOME/.emacs.d/bin"
-# PATH="$PATH:$HOME/Downloads/flutter/bin"
-PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+PATH="$PATH:$HOME/Downloads/flutter/bin"
+# PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export DOCKER_HOST=unix:///run/user/1000/docker.sock
+
 
 export PATH
 export FZF_DEFAULT_OPTS=" \
@@ -85,3 +89,11 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+fpath+=~/.zfunc; autoload -Uz compinit; compinit
+
+. "$HOME/.local/share/../bin/env"
+
+zle -N rgfzf
+bindkey '^G' rgfzf
+bindkey '^[r' ranger

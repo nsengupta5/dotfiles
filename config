@@ -153,7 +153,7 @@ bindsym Ctrl+$mod+Print exec --no-startup-id flameshot gui
 ## Clipboard Screenshots
 bindsym Print exec --no-startup-id flameshot screen -c
 bindsym Shift+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
-bindsym $mod+Print exec --no-startup-id flameshot gui -c
+bindsym $mod+Shift+s exec --no-startup-id flameshot gui -c
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -250,8 +250,8 @@ gaps inner 8
 # Autostart applications
 exec xrdb -merge ~/.Xresources
 exec xrandr --output eDP-1 --mode 1920x1200
-exec --no-startup-id feh --bg-scale ~/.config/i3/themes/macos/train_hills.jpg
-exec --no-startup-id picom --config ~/.config/picom.conf --experimental-backends -b
+exec --no-startup-id feh --bg-scale ~/.config/i3/themes/macos/mandelbrot_gap_magenta.png
+exec --no-startup-id sleep 2 && picom --config ~/.config/picom.conf --experimental-backends -b
 exec --no-startup-id libinput-gestures-setup start
 exec --no-startup-id xinput set-prop 11 346 1
 exec --no-startup-id xinput set-prop 11 373 1
