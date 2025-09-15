@@ -250,11 +250,11 @@ gaps inner 8
 # Autostart applications
 exec xrdb -merge ~/.Xresources
 exec xrandr --output eDP-1 --mode 1920x1200
-exec --no-startup-id feh --bg-scale ~/.config/i3/themes/macos/mandelbrot_gap_magenta.png
+exec --no-startup-id feh --bg-scale ~/.config/i3/themes/macos/blue_paint_waves.jpg
 exec --no-startup-id sleep 2 && picom --config ~/.config/picom.conf --experimental-backends -b
 exec --no-startup-id libinput-gestures-setup start
-exec --no-startup-id xinput set-prop 11 346 1
-exec --no-startup-id xinput set-prop 11 373 1
+exec --no-startup-id xinput set-prop 11 350 1
+exec --no-startup-id xinput set-prop 11 377 1
 exec --no-startup-id xidlehook --not-when-fullscreen --not-when-audio --timer 120 'light -S 10' 'light -S 100' --timer 10 'light -S 100; betterlockscreen -l' '' --timer 600 'systemctl suspend' ''
 exec --no-startup-id unclutter --timeout 5
 exec --no-startup-id sleep 2 && ~/.config/polybar/panels/launch.sh

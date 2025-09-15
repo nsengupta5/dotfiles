@@ -32,6 +32,13 @@ if [ -d "$HOME/bin" ] ; then
   PATH="$PATH:$HOME/bin"
 fi
 
+export DOCKER_HOST=unix:///run/user/1000/docker.sock
+export ANDROID_HOME=$HOME/Android/Sdk
+
+# export AVANTE_GEMINI_API_KEY=$(pass show APIKeys/Gemini)
+export AVANTE_GEMINI_API_KEY="AIzaSyD7MIwrpfhc4mwLdW5MA4_l5DpJw1uJQrs"
+
+
 PATH="$PATH:/usr/local/go/bin"
 PATH="$PATH:$HOME/.local/bin"
 PATH="$PATH:$HOME/.npm-global/bin"
@@ -41,9 +48,8 @@ PATH="$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools"
 # PATH="$PATH:$HOME/.cargo/bin"
 # PATH="$PATH:$HOME/.emacs.d/bin"
 PATH="$PATH:$HOME/Downloads/flutter/bin"
-# PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-export DOCKER_HOST=unix:///run/user/1000/docker.sock
-
+PATH=$PATH:$ANDROID_HOME/emulator
+PATH=$PATH:$ANDROID_HOME/platform-tools
 
 export PATH
 export FZF_DEFAULT_OPTS=" \

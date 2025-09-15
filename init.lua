@@ -16,6 +16,9 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+vim.diagnostic.config({
+	virtual_text = true,
+})
 
 -- Enable syntax highlighting and file type detection
 vim.cmd("syntax on")
@@ -52,6 +55,7 @@ require("packer").startup(function(use)
 	use("jiangmiao/auto-pairs")
 	use("unblevable/quick-scope")
 	use("tpope/vim-sensible")
+	use("windwp/nvim-ts-autotag")
 
 	-- LSP and completion
 	use("VonHeikemen/lsp-zero.nvim")
@@ -72,6 +76,7 @@ require("packer").startup(function(use)
 					terraform = { "terraform_fmt" },
 					tf = { "terraform_fmt" },
 					["terraform-vars"] = { "terraform_fmt" },
+					typescript = { "prettier" },
 				},
 				format_on_save = {
 					lsp_format = "fallback",
@@ -107,21 +112,8 @@ require("packer").startup(function(use)
 
 	-- AI support
 	use({ "zbirenbaum/copilot.lua" })
-	use({
-		"yetone/avante.nvim",
-		branch = "main",
-		run = "make",
-		config = function()
-			require("avante").setup({
-				provider = "ollama",
-				ollama = {
-					api_key_name = "",
-					endpoint = "http://127.0.0.1:11434", -- Note that there is no /v1 at the end.
-					model = "deepseek-coder:6.7b",
-				},
-			})
-		end,
-	})
+	-- Avante.nvim with build process
+	use({ "yetone/avante.nvim", branch = "main", run = "make" })
 	use({
 		"ravitemer/mcphub.nvim",
 		requires = {
@@ -256,7 +248,13 @@ require("cmp").setup({
 			vim.snippet.expand(args.body)
 		end,
 	},
-	mapping = require("cmp").mapping.preset.insert({}),
+	mapping = require("cmp").mapping.preset.insert({
+		["<C-b>"] = require("cmp").mapping.scroll_docs(-4),
+		["<C-f>"] = require("cmp").mapping.scroll_docs(4),
+		["<C-Space>"] = require("cmp").mapping.complete(),
+		["<C-e>"] = require("cmp").mapping.abort(),
+		["<CR>"] = require("cmp").mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+	}),
 })
 
 -- -- Flutter tools settings
@@ -286,6 +284,7 @@ require("gitsigns").setup()
 -- Git blame settings
 vim.keymap.set("n", "<A-b>", ":BlameToggle<CR>")
 
+-- Copilot settings
 require("copilot").setup({
 	suggestion = {
 		enabled = true,
@@ -301,6 +300,28 @@ require("copilot").setup({
 			prev = "<M-[>",
 			dismiss = "<C-]>",
 		},
+	},
+})
+
+-- Avente.nvim settings
+local avante_settings = {
+	provider = "ollama",
+	providers = {
+		ollama = {
+			endpoint = "http://localhost:11434",
+			model = "deepseek-coder:6.7b-instruct",
+		},
+	},
+}
+require("avante").setup(avante_settings)
+
+-- Autotag setting
+require("nvim-ts-autotag").setup({
+	opts = {
+		-- Defaults
+		enable_close = true, -- Auto close tags
+		enable_rename = true, -- Auto rename pairs of tags
+		enable_close_on_slash = false, -- Auto close on trailing </
 	},
 })
 
