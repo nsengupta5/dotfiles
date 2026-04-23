@@ -77,6 +77,7 @@ require("packer").startup(function(use)
 					tf = { "terraform_fmt" },
 					["terraform-vars"] = { "terraform_fmt" },
 					typescript = { "prettier" },
+					sql = { "sql_formatter" },
 				},
 				format_on_save = {
 					lsp_format = "fallback",
@@ -112,8 +113,6 @@ require("packer").startup(function(use)
 
 	-- AI support
 	use({ "zbirenbaum/copilot.lua" })
-	-- Avante.nvim with build process
-	use({ "yetone/avante.nvim", branch = "main", run = "make" })
 	use({
 		"ravitemer/mcphub.nvim",
 		requires = {
@@ -183,7 +182,10 @@ require("nvim-tree").setup({
 		group_empty = true,
 	},
 	filters = {
-		dotfiles = true,
+		dotfiles = false,
+	},
+	git = {
+		ignore = false, -- Show git ignored files
 	},
 	on_attach = my_nvim_tree_on_attach,
 })
@@ -219,6 +221,15 @@ lsp_zero.extend_lspconfig({
 			vim.lsp.buf.format({ async = true })
 		end, opts)
 		vim.keymap.set("n", "<F4>", vim.lsp.buf.code_action, opts)
+		-- FIX: Disable diagnostics for .env files but keep syntax highlighting
+		local bufname = vim.api.nvim_buf_get_name(bufnr)
+		if string.match(bufname, "%.env") then
+			if vim.fn.has("nvim-0.10") == 1 then
+				vim.diagnostic.enable(false, { bufnr = bufnr })
+			else
+				vim.diagnostic.disable(bufnr) -- Fallback for Neovim 0.9
+			end
+		end
 	end,
 	capabilities = require("cmp_nvim_lsp").default_capabilities(),
 })
@@ -303,18 +314,6 @@ require("copilot").setup({
 	},
 })
 
--- Avente.nvim settings
-local avante_settings = {
-	provider = "ollama",
-	providers = {
-		ollama = {
-			endpoint = "http://localhost:11434",
-			model = "deepseek-coder:6.7b-instruct",
-		},
-	},
-}
-require("avante").setup(avante_settings)
-
 -- Autotag setting
 require("nvim-ts-autotag").setup({
 	opts = {
@@ -328,7 +327,23 @@ require("nvim-ts-autotag").setup({
 -- Formatting settings
 -- Telescope key mappings
 local telescope_builtin = require("telescope.builtin")
-vim.keymap.set("n", "<C-f>", telescope_builtin.find_files)
+vim.keymap.set("n", "<C-f>", function()
+	telescope_builtin.find_files({
+		hidden = true,
+		find_command = {
+			"rg",
+			"--files",
+			"--hidden",
+			"--glob=!**/.git/*",
+			"--glob=!**/.idea/*",
+			"--glob=!**/.vscode/*",
+			"--glob=!**/build/*",
+			"--glob=!**/dist/*",
+			"--glob=!**/yarn.lock",
+			"--glob=!**/package-lock.json",
+		},
+	})
+end)
 vim.keymap.set("n", "<C-g>", telescope_builtin.live_grep)
 vim.keymap.set("n", "<C-b>", telescope_builtin.buffers)
 vim.keymap.set("n", "<C-h>", telescope_builtin.help_tags)

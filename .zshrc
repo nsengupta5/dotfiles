@@ -51,6 +51,16 @@ PATH="$PATH:$HOME/Downloads/flutter/bin"
 PATH=$PATH:$ANDROID_HOME/emulator
 PATH=$PATH:$ANDROID_HOME/platform-tools
 
+# opencode
+export PATH=/home/nsengupta5/.opencode/bin:$PATH
+
+# bun completions
+[ -s "/home/nsengupta5/.bun/_bun" ] && source "/home/nsengupta5/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
 export PATH
 export FZF_DEFAULT_OPTS=" \
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
